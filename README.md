@@ -12,6 +12,8 @@ a single seed and is backed by a SHA-256-sealed artifact manifest.
 > user data, no third-party traffic, no external target, no live-network relay.
 > See [`ETHICS-AND-CONTAINMENT.md`](ETHICS-AND-CONTAINMENT.md).
 
+📝 **Plain-language write-up:** [optinampout.com — SOR-Consent onion relay study](https://optinampout.com/blogs/2026-07-22-sor-consent-onion-relay-study)
+
 ## New here? Start with these
 
 - **[`EXPERIMENT.md`](EXPERIMENT.md)** — the whole study explained step by step, in
