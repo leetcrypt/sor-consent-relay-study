@@ -116,7 +116,7 @@
 <header class="hero">
   <div class="wrap">
     <h1>Consent-Gated Federated Onion Routing:<br/>Linkability, Anonymity-Set, and Churn-Resilience of an In-Band Accept/Reject Relay Model</h1>
-    <p class="sub">A pre-registered, frozen-detector measurement study on a single-laptop isolated-docker grid (two phones pinned as non-forwarding labels; every circuit is a laptop container). Two papers: a lead study (RQ1 linkability, RQ2 anonymity set) and a combined companion (RQ2-P3 mix mechanism, RQ3 churn-resilient agent selection). Reported honestly &mdash; nulls and negatives are results.</p>
+    <p class="sub">A pre-registered, frozen-detector measurement study on a single-laptop isolated-docker grid (every circuit is a laptop container). Two papers: a lead study (RQ1 linkability, RQ2 anonymity set) and a combined companion (RQ2-P3 mix mechanism, RQ3 churn-resilient agent selection). Reported honestly &mdash; nulls and negatives are results.</p>
     <div class="tags">
       <span class="tag">Pre-registered &amp; hashed</span>
       <span class="tag">Detectors frozen before data</span>
@@ -577,7 +577,7 @@ every hop must explicitly accept or reject each circuit through a signed in-band
 (Ed25519-authenticated, X25519 per-hop credentials), and in which relays are organized into
 <strong>houses</strong> that federate either through a shared <strong>bridge</strong> or through a <strong>directory</strong>. Treating
 this as a <em>measurement instrument</em> for a trust model's exposure (not a service that provides
-anonymity), we ask two confirmatory questions on a single-laptop isolated-docker grid (two non-forwarding phones pinned): <strong>(RQ1)</strong>
+anonymity), we ask two confirmatory questions on a single-laptop isolated-docker grid: <strong>(RQ1)</strong>
 does a shared bridge introduce a measurable flow-linkability leak between a circuit's entry and
 exit segments, and does cover padding remove it; <strong>(RQ2)</strong> does federating relays across houses
 <strong>grow or shrink</strong> the anonymity set an adversary faces, and is any effect explained by
@@ -635,7 +635,7 @@ linkability (RQ1) and the anonymity-set effect of federation (RQ2) on a lab grid
 when consent-gated federation helps or harms anonymity. <strong>On this instrument the answer is a
 double null/negative: no bridge leak to close, and federation that measurably <em>reduces</em> the
 anonymity set</strong> — reported here without spin as the paper's evidentiary core.</p>
-<p><strong>Scope.</strong> Claims are deliberately restricted to the tested lab topology and scale (a single laptop's isolated-docker containers; two phones pinned but non-forwarding; few houses); this is not an internet-scale or global-passive-adversary result (§7).
+<p><strong>Scope.</strong> Claims are deliberately restricted to the tested lab topology and scale (a single laptop's isolated-docker containers; few houses); this is not an internet-scale or global-passive-adversary result (§7).
 The paired <strong>churn-resilience</strong> question (RQ3) and a QUIC/<code>ssh3</code> transport arm [Michel2023] are
 pre-registered but held for a companion paper; this lead paper covers G4 + RQ1 + RQ2 only.</p>
 <hr />
@@ -742,9 +742,8 @@ truncated to u64, echoed into every manifest. <strong>Stopping rule:</strong> al
 completion — <strong>no optional stopping, no interim looks</strong>; an uninformative cell is reported
 <strong>inconclusive</strong>, never extended to chase significance.</p>
 <p><strong>Apparatus (disclosed).</strong> All relay hops ran as <strong>isolated Docker containers on a single engine
-host</strong> (the laptop; <code>grid/device-map.json</code>, <code>isolated_engine_host_count = 1</code>, Docker 27.5.1). The
-two phones were <strong>pinned consenting-node labels, not forwarders</strong> (probed reachable once at grid-pin;
-carried no measured traffic). Node distinctness is thus container-level
+host</strong> (the laptop; <code>grid/device-map.json</code>, <code>isolated_engine_host_count = 1</code>, Docker 27.5.1).
+Node distinctness is thus container-level
 (≥ 3 distinct containers per circuit), and matched-N is pinned from the containerised node count
 per manifest; cross-machine effects are out of scope (§7).</p>
 <h3 id="44-frozen-detectors-and-the-instrument-validation-gate">4.4 Frozen detectors and the instrument-validation gate</h3>
@@ -940,15 +939,15 @@ without being explained away.</p>
 <hr />
 <h2 id="7-limitations-threats-to-validity">7. Limitations &amp; threats to validity</h2>
 <ul>
-<li><strong>Scale / adversary model (External).</strong> The grid is a single laptop (isolated-docker) with two non-forwarding phones pinned, and few houses; this
+<li><strong>Scale / adversary model (External).</strong> The grid is a single laptop (isolated-docker), few houses; this
   is <strong>not</strong> internet-scale and <strong>not</strong> a global passive adversary. Claims are scoped to the
   tested topology/scale; entropy CIs are wide at small node counts (accepted, node counts
   reported).</li>
 <li><strong>Node distribution (External, disclosed).</strong> All relay hops executed as <strong>isolated Docker
   containers on a single engine host</strong> (the laptop; <code>isolated_engine_host_count = 1</code>, recorded in
-  <code>grid/device-map.json</code>). The two phones were <strong>pinned consenting-node labels, not forwarders</strong> — they
+  <code>grid/device-map.json</code>). Two phones were <strong>pinned consenting-node labels, not forwarders</strong> — they
   cannot host an isolated engine, were verified reachable only by a single grid-pin probe, and carried
-  no measured traffic. Node <em>distinctness</em> for RQ1/RQ2 is therefore container-level
+  no measured traffic (full evidenced record: <code>PHONE-ROLE-AUDIT.md</code>). Node <em>distinctness</em> for RQ1/RQ2 is therefore container-level
   (≥ 3 distinct containers per circuit), not physical-machine-level; matched-N is pinned from the
   containerised node count per manifest. This satisfies the containment law (every forwarder runs
   in an isolated engine, <code>engine ≠ local</code>) but means cross-machine timing effects are <strong>out of
@@ -1384,7 +1383,7 @@ confirmatory battery and have both passed on a <strong>dry, synthetic, offline</
   companion's frozen-detector method both <em>caught</em> the unique-bridge artifact and <em>promotes</em> the
   corrected mechanism finding into the surviving family. Lead RQ1-P1 and RQ2-P1 survive regardless.</li>
 <li><strong>Scope &amp; limitations.</strong> Both findings are scoped to the lab grid (1-house / bridge-off control,
-  single-laptop isolated-docker, two non-forwarding phones, self-generated fixture traffic) and inherit the lead paper's external-validity
+  single-laptop isolated-docker, self-generated fixture traffic) and inherit the lead paper's external-validity
   caveats. Specific to this companion: (i) the RQ2-P3 mix is an <strong>as-instrumented</strong> concentration
   effect on the ratified exit-signature posterior, not an internet-scale claim; (ii) the RQ3 nulls
   are <strong>grid-bound</strong> — the perf null follows from a baseline retention ceiling under the pinned

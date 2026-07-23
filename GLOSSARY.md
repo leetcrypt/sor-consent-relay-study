@@ -26,8 +26,8 @@ first.
   server (one community's private deployment) with its own pool of relay nodes and its
   own cryptographic identities. A "house" is **not** a building or a location; it is a
   software deployment. *(In this study the houses were logical groupings on our lab grid:
-  house-A = the laptop's pool of relay containers; house-B and house-C = the two phones
-  acting as consenting nodes. All forwarding hops were containers on the one laptop.)*
+  house-A, house-B, and house-C were each a pool of relay containers on the one laptop —
+  all forwarding hops were laptop containers.)*
 - **Federated / federation.** Linking two or more separate **houses** (see above) so
   their relay pools **combine into one larger shared crowd**, with each circuit built to
   **span ≥ 2 houses** so no single house's logs ever contain a whole path
@@ -35,11 +35,10 @@ first.
   encrypted bytes between houses (it holds no chat key for either), or a **directory** in
   which houses exchange signed rosters of their nodes. RQ2 asks whether federating this
   way actually enlarges your hiding crowd.
-- **Endpoint vs forwarder.** An **endpoint** is a phone/computer that *starts or ends*
-  a conversation. A **forwarder** is a hop in the middle. In our study the two phones
-  **never forwarded** anyone's traffic (they cannot host an isolated engine). They were
-  pinned as logical consenting-node *labels* and probed reachable once at grid-pin time;
-  no measured traffic passed through them. See `PHONE-ROLE-AUDIT.md`.
+- **Endpoint vs forwarder.** An **endpoint** *starts or ends* a conversation; a
+  **forwarder** is a hop in the middle. In this study every forwarder was a laptop
+  container. *(Disclosed deviation: two phones were pinned as non-forwarding
+  consenting-node labels and carried no measured traffic — see `PHONE-ROLE-AUDIT.md`.)*
 - **Measurement instrument (not a service).** We did **not** build a product for people
   to hide their traffic. We built a lab rig whose only purpose is to be *measured* — like
   a crash-test car, not a car you drive to work.

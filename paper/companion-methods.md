@@ -343,7 +343,7 @@ confirmatory battery and have both passed on a **dry, synthetic, offline** pass:
   companion's frozen-detector method both *caught* the unique-bridge artifact and *promotes* the
   corrected mechanism finding into the surviving family. Lead RQ1-P1 and RQ2-P1 survive regardless.
 - **Scope & limitations.** Both findings are scoped to the lab grid (1-house / bridge-off control,
-  single-laptop isolated-docker, two non-forwarding phones, self-generated fixture traffic) and inherit the lead paper's external-validity
+  single-laptop isolated-docker, self-generated fixture traffic) and inherit the lead paper's external-validity
   caveats. Specific to this companion: (i) the RQ2-P3 mix is an **as-instrumented** concentration
   effect on the ratified exit-signature posterior, not an internet-scale claim; (ii) the RQ3 nulls
   are **grid-bound** — the perf null follows from a baseline retention ceiling under the pinned

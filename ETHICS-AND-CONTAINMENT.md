@@ -14,7 +14,7 @@ provenance in `results/rq1-rq2-lead/grid/device-map.json`.
 2. **Self-generated traffic to our own fixtures only.** No real user traffic and
    no third-party data ever entered the instrument.
 3. **Lab-only, our own devices.** The grid was one laptop (all forwarding hops) +
-   two non-forwarding phones + our own VM churn fabric — all ours. Any external target, any live-network relay, or any
+   our own VM churn fabric — all ours. Any external target, any live-network relay, or any
    local (non-isolated) forwarder is a **hard stop** requiring explicit human
    approval, and none occurred.
 4. **Defensive-measurement framing is load-bearing** in the code, tests, comments,

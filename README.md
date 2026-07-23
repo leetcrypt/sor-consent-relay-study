@@ -73,14 +73,15 @@ and we report them plainly.**
 
 This is a **lab measurement, not an internet-scale claim.** All relay hops ran as
 **isolated Docker containers on a single engine host** (the laptop;
-`isolated_engine_host_count = 1`). Two phones (`fp6`, `tril`) were **pinned in the
-grid as logical consenting-node labels** (house-B, house-C) and probed SSH-reachable
-at grid-pin time; they have `can_host_engine = false`, ran **no forwarder**, and
-**carried no measured traffic** — every one of the 27,000 pcaps came from a laptop
-container. See [`PHONE-ROLE-AUDIT.md`](PHONE-ROLE-AUDIT.md) for the exact evidence.
-We do **not** assume a global passive adversary. Node distinctness is container-level.
-Physical multi-host distribution and a stronger adversary are named future work, not
-claimed here.
+`isolated_engine_host_count = 1`); node distinctness is container-level. We do **not**
+assume a global passive adversary. Physical multi-host distribution and a stronger
+adversary are named future work, not claimed here.
+
+> **Disclosed deviation.** Two phones were pinned in the grid inventory as logical
+> consenting-node labels but were **non-forwarding** — `can_host_engine = false`, no
+> forwarder, no measured traffic (all 27,000 pcaps came from laptop containers). They
+> are not load-bearing to any finding; see [`PHONE-ROLE-AUDIT.md`](PHONE-ROLE-AUDIT.md)
+> for the full evidenced record.
 
 ## Reproducibility spine
 

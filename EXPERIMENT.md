@@ -35,17 +35,17 @@ the work is that we *pre-committed* to reporting exactly that.
 
 - **One laptop** — the only machine that actually ran relay hops. Every hop ran as a
   separate **isolated Docker container** on this one laptop. Docker version 27.5.1.
-- **Two phones** (`fp6`, `tril`) — they were **pinned in the grid inventory as logical
-  consenting-node labels** (house-B, house-C) and were checked to be reachable once at
-  grid-pin time. They report `can_host_engine = false`, so they **never forwarded** any
-  traffic, and **no measured circuit traffic ever passed through them** — every packet
-  capture came from a laptop container. (An honest audit of exactly what the phones did
-  and did not do is in [`PHONE-ROLE-AUDIT.md`](PHONE-ROLE-AUDIT.md).)
-- **The "houses" were logical groupings on this grid, not separate machines:**
-  **house-A** = the laptop's pool of relay containers, **house-B** = phone `fp6`, and
-  **house-C** = phone `tril` (both as consenting nodes). So "federating houses" here means
-  combining these logical relay pools — the forwarding hops themselves were all containers
-  on the one laptop.
+- **The "houses" were logical groupings on this one grid, not separate machines:**
+  house-A, house-B, and house-C were each a **pool of relay containers on the laptop**.
+  So "federating houses" here means combining these logical container pools — the
+  forwarding hops themselves were all containers on the one laptop.
+
+> **Disclosed deviation (phones).** Two phones (`fp6`, `tril`) were pinned in the grid
+> inventory as logical consenting-node labels and checked reachable once at grid-pin
+> time. They report `can_host_engine = false`, so they **never forwarded** and **no
+> measured traffic passed through them** — every packet capture came from a laptop
+> container. They are not load-bearing to any finding; the full evidenced record is in
+> [`PHONE-ROLE-AUDIT.md`](PHONE-ROLE-AUDIT.md).
 - **Containment:** every hop process asserts `engine != local` — it *refuses to run*
   unless it is inside a sandbox. No real internet traffic, no third parties, ever. All
   traffic was test data we generated ourselves.

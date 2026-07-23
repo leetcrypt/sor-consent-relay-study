@@ -35,7 +35,7 @@ every hop must explicitly accept or reject each circuit through a signed in-band
 (Ed25519-authenticated, X25519 per-hop credentials), and in which relays are organized into
 **houses** that federate either through a shared **bridge** or through a **directory**. Treating
 this as a *measurement instrument* for a trust model's exposure (not a service that provides
-anonymity), we ask two confirmatory questions on a single-laptop isolated-docker grid (two non-forwarding phones pinned): **(RQ1)**
+anonymity), we ask two confirmatory questions on a single-laptop isolated-docker grid: **(RQ1)**
 does a shared bridge introduce a measurable flow-linkability leak between a circuit's entry and
 exit segments, and does cover padding remove it; **(RQ2)** does federating relays across houses
 **grow or shrink** the anonymity set an adversary faces, and is any effect explained by
@@ -95,7 +95,7 @@ when consent-gated federation helps or harms anonymity. **On this instrument the
 double null/negative: no bridge leak to close, and federation that measurably *reduces* the
 anonymity set** — reported here without spin as the paper's evidentiary core.
 
-**Scope.** Claims are deliberately restricted to the tested lab topology and scale (a single laptop's isolated-docker containers; two phones pinned but non-forwarding; few houses); this is not an internet-scale or global-passive-adversary result (§7).
+**Scope.** Claims are deliberately restricted to the tested lab topology and scale (a single laptop's isolated-docker containers; few houses); this is not an internet-scale or global-passive-adversary result (§7).
 The paired **churn-resilience** question (RQ3) and a QUIC/`ssh3` transport arm [Michel2023] are
 pre-registered but held for a companion paper; this lead paper covers G4 + RQ1 + RQ2 only.
 
@@ -216,9 +216,8 @@ completion — **no optional stopping, no interim looks**; an uninformative cell
 **inconclusive**, never extended to chase significance.
 
 **Apparatus (disclosed).** All relay hops ran as **isolated Docker containers on a single engine
-host** (the laptop; `grid/device-map.json`, `isolated_engine_host_count = 1`, Docker 27.5.1). The
-two phones were **pinned consenting-node labels, not forwarders** (probed reachable once at
-grid-pin; carried no measured traffic — see `PHONE-ROLE-AUDIT.md`). Node distinctness is thus container-level
+host** (the laptop; `grid/device-map.json`, `isolated_engine_host_count = 1`, Docker 27.5.1).
+Node distinctness is thus container-level
 (≥ 3 distinct containers per circuit), and matched-N is pinned from the containerised node count
 per manifest; cross-machine effects are out of scope (§7).
 
@@ -391,7 +390,7 @@ without being explained away.
 
 ## 7. Limitations & threats to validity
 
-- **Scale / adversary model (External).** The grid is a single laptop (isolated-docker) with two non-forwarding phones pinned, and few houses; this
+- **Scale / adversary model (External).** The grid is a single laptop (isolated-docker), few houses; this
   is **not** internet-scale and **not** a global passive adversary. Claims are scoped to the
   tested topology/scale; entropy CIs are wide at small node counts (accepted, node counts
   reported).
