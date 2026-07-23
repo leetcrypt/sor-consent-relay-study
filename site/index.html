@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Consent-Gated Federated Onion Routing &mdash; study site</title>
+<style>
+  :root{
+    --ink:#151d2b; --muted:#5b6b82; --line:#e3e8ef; --bg:#f5f7fa; --card:#ffffff;
+    --teal:#0f766e; --teal-soft:#d7ede9; --green:#15803d; --green-soft:#dcf2e2;
+    --amber:#b45309; --amber-soft:#fcecd6; --gray:#64748b; --gray-soft:#e8edf3;
+    --accent:#1d4ed8;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.hero{background:linear-gradient(135deg,#0b2a3a,#0f766e);color:#fff;padding:38px 20px 30px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+  header.hero .wrap{padding:0 20px}
+  header.hero h1{margin:0 0 6px;font-size:26px;line-height:1.25;font-weight:700;letter-spacing:-.2px}
+  header.hero p.sub{margin:0;opacity:.9;font-size:15px;max-width:760px}
+  .tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+    padding:4px 10px;border-radius:999px;font-size:12.5px}
+  nav.toc{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+  nav.toc .wrap{display:flex;gap:4px;flex-wrap:wrap;padding:8px 20px}
+  nav.toc a{padding:7px 12px;border-radius:8px;color:var(--muted);font-size:14px;font-weight:600}
+  nav.toc a:hover{background:var(--gray-soft);text-decoration:none;color:var(--ink)}
+  main{padding:28px 0 60px}
+  section{margin:0 0 34px}
+  h2.sh{font-size:21px;margin:6px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--teal);
+    display:inline-block}
+  .lead{color:var(--muted);max-width:760px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 14px;
+    box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .card .k{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700}
+  .card .v{font-size:22px;font-weight:750;margin:6px 0 2px;letter-spacing:-.3px}
+  .card .d{font-size:13.5px;color:var(--muted)}
+  .pill{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;margin-top:8px}
+  .pill.null{background:var(--gray-soft);color:#334155}
+  .pill.neg{background:var(--amber-soft);color:var(--amber)}
+  .pill.mix{background:var(--green-soft);color:var(--green)}
+  table.glance{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);
+    border-radius:12px;overflow:hidden;font-size:14.5px;margin-top:8px}
+  table.glance th,table.glance td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  table.glance th{background:#f0f4f8;font-size:12.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+  table.glance tr:last-child td{border-bottom:none}
+  .survive{color:var(--teal);font-weight:700}
+  .figure{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 8px;
+    margin:18px 0;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .figure svg{width:100%;height:auto;display:block}
+  .figure figcaption{font-size:13.5px;color:var(--muted);margin:6px 4px 10px;line-height:1.5}
+  .figure figcaption b{color:var(--ink)}
+  .fig-num{font-weight:750;color:var(--teal)}
+  /* paper body */
+  .paper{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 30px 26px;
+    box-shadow:0 1px 2px rgba(16,24,40,.04);
+    font-family:Georgia,"Times New Roman",serif;font-size:16.5px;line-height:1.68}
+  .paper h1{font-size:24px;line-height:1.28;margin:22px 0 6px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .paper h2{font-size:20px;margin:26px 0 8px;padding-top:6px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    border-top:1px solid var(--line)}
+  .paper h3{font-size:17px;margin:18px 0 6px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .paper h1:first-child{border:none}
+  .paper blockquote{margin:14px 0;padding:12px 16px;background:#f7f9fb;border-left:4px solid var(--teal);
+    border-radius:0 8px 8px 0;font-size:15px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#33465c}
+  .paper blockquote p{margin:6px 0}
+  .paper table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .paper th,.paper td{border:1px solid var(--line);padding:7px 9px;text-align:left}
+  .paper th{background:#f0f4f8}
+  .paper code{background:#eef2f7;padding:1px 5px;border-radius:5px;font-size:13.5px;
+    font-family:"SF Mono",Menlo,Consolas,monospace}
+  .paper hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+  .paper a{word-break:break-word}
+  .collapsible{margin:10px 0 0}
+  details.paperwrap>summary{cursor:pointer;list-style:none;padding:12px 16px;background:var(--card);
+    border:1px solid var(--line);border-radius:12px;font-weight:700;color:var(--ink);
+    display:flex;justify-content:space-between;align-items:center}
+  details.paperwrap>summary::-webkit-details-marker{display:none}
+  details.paperwrap>summary .hint{font-weight:500;color:var(--muted);font-size:13px}
+  details.paperwrap[open]>summary{border-radius:12px 12px 0 0;border-bottom:none}
+  details.paperwrap .paper{border-radius:0 0 14px 14px;border-top:none}
+  .prov{font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:14px 16px;line-height:1.7}
+  .prov code{background:#eef2f7;padding:1px 5px;border-radius:5px;font-size:12px;
+    font-family:"SF Mono",Menlo,Consolas,monospace;word-break:break-all}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin:2px 4px 8px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+  footer{padding:26px 0;color:var(--muted);font-size:13px;text-align:center}
+  html,body{max-width:100%;overflow-x:hidden}
+  .figure svg{max-width:100%}
+  @media (max-width:640px){
+    .wrap{padding:0 14px}
+    header.hero{padding:26px 14px 22px}
+    header.hero h1{font-size:20px}
+    header.hero p.sub{font-size:14px}
+    h2.sh{font-size:19px}
+    .figure{padding:12px 12px 6px}
+    .figure figcaption{font-size:12.5px}
+    .paper{padding:6px 16px 20px;font-size:16px}
+    .paper h1{font-size:21px}
+    .paper h2{font-size:18px}
+    /* wide tables scroll inside their own box instead of pushing the page */
+    table.glance,.paper table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}
+    .prov code{white-space:normal}
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <h1>Consent-Gated Federated Onion Routing:<br/>Linkability, Anonymity-Set, and Churn-Resilience of an In-Band Accept/Reject Relay Model</h1>
+    <p class="sub">A pre-registered, frozen-detector measurement study on a single-laptop isolated-docker grid (two phones pinned as non-forwarding labels; every circuit is a laptop container). Two papers: a lead study (RQ1 linkability, RQ2 anonymity set) and a combined companion (RQ2-P3 mix mechanism, RQ3 churn-resilient agent selection). Reported honestly &mdash; nulls and negatives are results.</p>
+    <div class="tags">
+      <span class="tag">Pre-registered &amp; hashed</span>
+      <span class="tag">Detectors frozen before data</span>
+      <span class="tag">180 + 13,500 + 4,500 circuits</span>
+      <span class="tag">BCa 95% CIs &middot; Holm-7</span>
+      <span class="tag">Defensive-measurement instrument</span>
+      <span class="tag">Containment: isolated-engine only</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc"><div class="wrap">
+  <a href="#summary">Summary</a>
+  <a href="#figures">Visual abstract</a>
+  <a href="#lead-paper">Lead paper</a>
+  <a href="#companion-paper">Companion paper</a>
+  <a href="#provenance">Provenance</a>
+</div></nav>
+
+<main class="wrap">
+
+<!-- ================= SUMMARY ================= -->
+<section id="summary">
+  <h2 class="sh">Executive summary</h2>
+  <p class="lead">We built a consent-gated, federated, nested-SSH relay <b>as a measurement instrument</b>
+  (not a service) and asked, on a lab grid, whether a shared bridge leaks entry&harr;exit linkability (RQ1),
+  whether federation grows or shrinks the anonymity set (RQ2), whether shared-bridge concentration funnels
+  or mixes (RQ2-P3), and whether a local open-weight agent selector survives churn without a rebuild
+  fingerprint (RQ3). Every detector was calibrated on fixtures and frozen before any confirmatory cell ran.</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="k">RQ1 &middot; Bridge linkability</div>
+      <div class="v">AUC 0.466</div>
+      <div class="d">CI [0.452, 0.480], below the 0.50 chance line. Calibration: linked 1.00 / unlinked 0.50.</div>
+      <span class="pill null">No measurable leak</span>
+    </div>
+    <div class="card">
+      <div class="k">RQ2-P1 &middot; Federation</div>
+      <div class="v">&Delta;H &minus;0.96 bits</div>
+      <div class="d">CI [&minus;1.06, &minus;0.86]. Federation <b>shrinks</b> the per-circuit anonymity set (Holm-significant negative).</div>
+      <span class="pill neg">Honest negative</span>
+    </div>
+    <div class="card">
+      <div class="k">RQ2-P3 &middot; Mix mechanism</div>
+      <div class="v">&rho; +0.62</div>
+      <div class="d">CI [+0.59, +0.65]; slope &beta; +0.71. Shared-pool concentration <b>raises</b> anonymity &mdash; corrects the lead "shrink" as a unique-bridge artifact.</div>
+      <span class="pill mix">Resolved: MIX</span>
+    </div>
+    <div class="card">
+      <div class="k">RQ3 &middot; Agent selector</div>
+      <div class="v">Null &times; 2</div>
+      <div class="d">Retention margin &minus;0.6pp (gate +10pp); rebuild AUC 0.587, CI upper 0.703 &gt; 0.60. Neither beats baselines nor certifiably fingerprint-free (n=30).</div>
+      <span class="pill null">H0 on both counts</span>
+    </div>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 4px">The seven pre-registered tests (authoritative Holm-7)</h3>
+  <table class="glance">
+    <thead><tr><th>Test</th><th>Effect (point &amp; 95% CI)</th><th>Frozen gate</th><th>Holm-7 adj&nbsp;p</th><th>Survives&nbsp;.05</th></tr></thead>
+    <tbody>
+      <tr><td class="survive">RQ1-P1 leak</td><td>AUC 0.466 [0.452, 0.480]</td><td>CI excludes 0.5 (leak)</td><td>0</td><td class="survive">yes* (below chance &rarr; no leak)</td></tr>
+      <tr><td class="survive">RQ2-P1 federation</td><td>&Delta;H &minus;0.96 [&minus;1.06, &minus;0.86] bits</td><td>two-sided sign</td><td>0</td><td class="survive">yes &mdash; shrink</td></tr>
+      <tr><td class="survive">RQ2-P3 mechanism</td><td>&rho; +0.62 [+0.59, +0.65]</td><td>two-sided sign</td><td>0</td><td class="survive">yes &mdash; mix</td></tr>
+      <tr><td>RQ1-P2 padding</td><td>&Delta;AUC +0.011 [&minus;0.002, +0.023]</td><td>CI &gt; 0</td><td>0.365</td><td>no</td></tr>
+      <tr><td>RQ3-P2 fingerprint</td><td>AUC 0.587 [0.458, 0.703]</td><td>CI upper &le; 0.60</td><td>0.511</td><td>no (not excluded)</td></tr>
+      <tr><td>RQ3-P1-perf</td><td>&minus;0.6pp [&minus;1.58, +0.39]pp</td><td>CI lower &ge; +10pp</td><td>0.511</td><td>no</td></tr>
+      <tr><td>RQ3-P1-latency</td><td>&minus;13.5ms [&minus;52.1, +34.9]ms</td><td>CI upper &le; 100ms</td><td>0.511</td><td>within budget</td></tr>
+    </tbody>
+  </table>
+  <p class="lead" style="font-size:13.5px;margin-top:8px">* RQ1-P1 rejects "AUC = 0.5" in the <i>wrong</i> direction (below chance), so it is <b>not</b> evidence of a leak. Survivors of the authoritative Holm-7: RQ1-P1, RQ2-P1 (shrink), RQ2-P3 (mix).</p>
+</section>
+
+<!-- ================= FIGURES ================= -->
+<section id="figures">
+  <h2 class="sh">Visual abstract</h2>
+  <p class="lead">Publication-ready SVG figures illustrating the instrument, the design, and each finding. All annotations are cross-checked against the sealed analysis records.</p>
+
+  <!-- FIG 1: instrument -->
+  <figure class="figure">
+    <svg viewBox="0 0 920 330" role="img" aria-label="The consent-gated nested-SSH circuit instrument">
+      <defs>
+        <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L7,3 L0,6 Z" fill="#0f766e"/>
+        </marker>
+      </defs>
+      <rect x="14" y="60" width="892" height="210" rx="14" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="7 5"/>
+      <text x="28" y="82" font-size="12.5" font-weight="700" fill="#b45309" font-family="sans-serif">ISOLATED ENGINE (docker) &mdash; assert engine != local, or the run refuses &middot; self-generated fixture traffic, lab-only</text>
+      <!-- nodes -->
+      <g font-family="sans-serif" text-anchor="middle">
+        <!-- client -->
+        <rect x="40" y="120" width="120" height="60" rx="10" fill="#eef4fb" stroke="#1d4ed8" stroke-width="1.5"/>
+        <text x="100" y="146" font-size="14" font-weight="700" fill="#151d2b">Client</text>
+        <text x="100" y="165" font-size="11.5" fill="#5b6b82">seeds payload</text>
+        <!-- hops -->
+        <rect x="240" y="120" width="120" height="60" rx="10" fill="#d7ede9" stroke="#0f766e" stroke-width="1.5"/>
+        <text x="300" y="144" font-size="14" font-weight="700" fill="#0f766e">Hop 0</text>
+        <text x="300" y="163" font-size="11.5" fill="#33465c">entry segment</text>
+        <rect x="440" y="120" width="120" height="60" rx="10" fill="#d7ede9" stroke="#0f766e" stroke-width="1.5"/>
+        <text x="500" y="144" font-size="14" font-weight="700" fill="#0f766e">Hop 1</text>
+        <text x="500" y="163" font-size="11.5" fill="#33465c">middle</text>
+        <rect x="640" y="120" width="120" height="60" rx="10" fill="#d7ede9" stroke="#0f766e" stroke-width="1.5"/>
+        <text x="700" y="144" font-size="14" font-weight="700" fill="#0f766e">Hop 2</text>
+        <text x="700" y="163" font-size="11.5" fill="#33465c">exit segment</text>
+        <!-- sink -->
+        <rect x="820" y="120" width="72" height="60" rx="10" fill="#eef4fb" stroke="#1d4ed8" stroke-width="1.5"/>
+        <text x="856" y="146" font-size="12" font-weight="700" fill="#151d2b">Fixture</text>
+        <text x="856" y="164" font-size="11" fill="#5b6b82">sink</text>
+      </g>
+      <!-- tunnels -->
+      <g stroke="#0f766e" stroke-width="2.5" marker-end="url(#arr)">
+        <line x1="162" y1="150" x2="236" y2="150"/>
+        <line x1="362" y1="150" x2="436" y2="150"/>
+        <line x1="562" y1="150" x2="636" y2="150"/>
+        <line x1="762" y1="150" x2="816" y2="150"/>
+      </g>
+      <text x="460" y="108" text-anchor="middle" font-size="12" fill="#0f766e" font-family="sans-serif" font-weight="700">nested-SSH tunnels (R4)</text>
+      <!-- consent handshake band -->
+      <g font-family="sans-serif" text-anchor="middle">
+        <rect x="240" y="212" width="520" height="34" rx="8" fill="#fcf5e9" stroke="#b45309" stroke-width="1.2"/>
+        <text x="500" y="234" font-size="12.5" fill="#8a4408" font-weight="700">in-band consent (R5): Ed25519-signed request &rarr; verify before accept &middot; X25519 per-hop credential sealed to host key</text>
+      </g>
+      <!-- pcaps -->
+      <g font-family="sans-serif" text-anchor="middle">
+        <text x="300" y="205" font-size="10.5" fill="#5b6b82">&#128190; pcap&#8320;</text>
+        <text x="500" y="205" font-size="10.5" fill="#5b6b82">&#128190; pcap&#8321;</text>
+        <text x="700" y="205" font-size="10.5" fill="#5b6b82">&#128190; pcap&#8322;</text>
+      </g>
+      <text x="28" y="300" font-size="11.5" fill="#5b6b82" font-family="sans-serif">Determinism &amp; provenance (R1&ndash;R3): one <tspan font-style="italic">--sor-seed</tspan> &rarr; immutable manifest.json + SHA-256-sealed events.jsonl; every per-hop pcap written once and checksummed.</text>
+    </svg>
+    <figcaption><span class="fig-num">Figure 1.</span> <b>The instrument.</b> A consent-gated, nested-SSH circuit: each hop must cryptographically accept a signed in-band request before it will carry the flow; per-hop credentials are X25519-sealed to the host key. Every forwarder runs in an isolated engine only. Entry (Hop&nbsp;0) and exit (Hop&nbsp;2) segments are the observable units RQ1 probes.</figcaption>
+  </figure>
+
+  <!-- FIG 2: topologies -->
+  <figure class="figure">
+    <svg viewBox="0 0 920 250" role="img" aria-label="Federation topologies at matched node count">
+      <g font-family="sans-serif" text-anchor="middle">
+        <!-- 1-house-N -->
+        <text x="150" y="28" font-size="13.5" font-weight="700" fill="#151d2b">1-house-N</text>
+        <circle cx="150" cy="130" r="78" fill="#eef4fb" stroke="#1d4ed8" stroke-width="1.5"/>
+        <text x="150" y="60" font-size="11.5" fill="#1d4ed8">House A</text>
+        <g fill="#1d4ed8"><circle cx="120" cy="110" r="7"/><circle cx="180" cy="110" r="7"/><circle cx="110" cy="150" r="7"/><circle cx="150" cy="165" r="7"/><circle cx="190" cy="150" r="7"/></g>
+        <text x="150" y="228" font-size="11" fill="#5b6b82">all N nodes in one house</text>
+
+        <!-- bridge-federated -->
+        <text x="460" y="28" font-size="13.5" font-weight="700" fill="#151d2b">bridge-federated</text>
+        <circle cx="392" cy="130" r="52" fill="#eef4fb" stroke="#1d4ed8" stroke-width="1.5"/>
+        <circle cx="528" cy="130" r="52" fill="#eef4fb" stroke="#1d4ed8" stroke-width="1.5"/>
+        <text x="392" y="92" font-size="10.5" fill="#1d4ed8">House A</text>
+        <text x="528" y="92" font-size="10.5" fill="#1d4ed8">House B</text>
+        <g fill="#1d4ed8"><circle cx="375" cy="130" r="6"/><circle cx="405" cy="145" r="6"/><circle cx="515" cy="130" r="6"/><circle cx="545" cy="145" r="6"/></g>
+        <circle cx="460" cy="130" r="22" fill="#fcecd6" stroke="#b45309" stroke-width="1.8"/>
+        <text x="460" y="134" font-size="10.5" font-weight="700" fill="#b45309">Bridge</text>
+        <line x1="437" y1="130" x2="483" y2="130" stroke="#b45309" stroke-width="2"/>
+        <text x="460" y="228" font-size="11" fill="#5b6b82">shared observation point</text>
+
+        <!-- directory-federated -->
+        <text x="790" y="28" font-size="13.5" font-weight="700" fill="#151d2b">directory-federated</text>
+        <circle cx="720" cy="90" r="30" fill="#eef4fb" stroke="#1d4ed8" stroke-width="1.4"/>
+        <circle cx="860" cy="90" r="30" fill="#eef4fb" stroke="#1d4ed8" stroke-width="1.4"/>
+        <circle cx="790" cy="185" r="30" fill="#eef4fb" stroke="#1d4ed8" stroke-width="1.4"/>
+        <text x="720" y="94" font-size="10" fill="#1d4ed8">A</text>
+        <text x="860" y="94" font-size="10" fill="#1d4ed8">B</text>
+        <text x="790" y="189" font-size="10" fill="#1d4ed8">C</text>
+        <circle cx="790" cy="125" r="24" fill="#d7ede9" stroke="#0f766e" stroke-width="1.8"/>
+        <text x="790" y="122" font-size="9.5" font-weight="700" fill="#0f766e">Dir-</text>
+        <text x="790" y="133" font-size="9.5" font-weight="700" fill="#0f766e">ectory</text>
+        <g stroke="#0f766e" stroke-width="1.6"><line x1="742" y1="103" x2="772" y2="118"/><line x1="838" y1="103" x2="808" y2="118"/><line x1="790" y1="155" x2="790" y2="149"/></g>
+        <text x="790" y="228" font-size="11" fill="#5b6b82">no single shared hop</text>
+      </g>
+    </svg>
+    <figcaption><span class="fig-num">Figure 2.</span> <b>Federation topologies (RQ2), matched total node count N.</b> The design isolates the <i>topology</i> effect, not a node-count artifact. RQ2-P1 compares the pooled federated arms against a single house of the same N.</figcaption>
+  </figure>
+
+  <!-- FIG 3: RQ1 -->
+  <figure class="figure">
+    <svg viewBox="0 0 920 190" role="img" aria-label="RQ1 correlation AUC below chance">
+      <g font-family="sans-serif">
+        <!-- axis -->
+        <line x1="70" y1="120" x2="850" y2="120" stroke="#94a3b8" stroke-width="1.5"/>
+        <!-- ticks 0.4..1.0 -->
+        <g text-anchor="middle" font-size="11" fill="#5b6b82">
+          <!-- x = 70 + (val-0.4)/0.6*780 -->
+          <line x1="70" y1="116" x2="70" y2="124" stroke="#94a3b8"/><text x="70" y="140">0.40</text>
+          <line x1="200" y1="116" x2="200" y2="124" stroke="#94a3b8"/><text x="200" y="140">0.50</text>
+          <line x1="330" y1="116" x2="330" y2="124" stroke="#94a3b8"/><text x="330" y="140">0.60</text>
+          <line x1="590" y1="116" x2="590" y2="124" stroke="#94a3b8"/><text x="590" y="140">0.80</text>
+          <line x1="850" y1="116" x2="850" y2="124" stroke="#94a3b8"/><text x="850" y="140">1.00</text>
+        </g>
+        <!-- chance line at 0.5 (x=200) -->
+        <line x1="200" y1="52" x2="200" y2="120" stroke="#64748b" stroke-width="1.4" stroke-dasharray="5 4"/>
+        <text x="200" y="46" text-anchor="middle" font-size="11.5" fill="#64748b" font-weight="700">chance 0.50</text>
+        <!-- materiality 0.60 -->
+        <line x1="330" y1="70" x2="330" y2="120" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="3 3"/>
+        <text x="330" y="64" text-anchor="middle" font-size="10.5" fill="#94a3b8">material 0.60</text>
+        <!-- calibration linked 1.00 -->
+        <circle cx="850" cy="120" r="6" fill="#15803d"/>
+        <text x="850" y="104" text-anchor="middle" font-size="11" fill="#15803d" font-weight="700">linked 1.00</text>
+        <!-- calibration unlinked 0.50 -->
+        <circle cx="200" cy="120" r="5" fill="#64748b"/>
+        <!-- measured 0.466 -> x = 70 + (0.466-0.4)/0.6*780 = 70+85.8=155.8 ; CI 0.452..0.480 -> 137.6..174 -->
+        <line x1="137.6" y1="120" x2="174" y2="120" stroke="#b45309" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="155.8" cy="120" r="7" fill="#b45309"/>
+        <text x="150" y="168" text-anchor="middle" font-size="12.5" fill="#b45309" font-weight="700">measured 0.466</text>
+        <text x="150" y="184" text-anchor="middle" font-size="11" fill="#8a4408">CI [0.452, 0.480]</text>
+        <!-- verdict -->
+        <text x="560" y="176" text-anchor="middle" font-size="12.5" fill="#334155">below chance &rarr; <tspan font-weight="700" fill="#b45309">NO measurable entry&harr;exit leak</tspan>; padding (RQ1-P2) has nothing to suppress</text>
+      </g>
+    </svg>
+    <figcaption><span class="fig-num">Figure 3.</span> <b>RQ1 &mdash; bridge linkability.</b> The frozen correlator calibrates perfectly (linked&nbsp;1.00 / unlinked&nbsp;0.50) yet reads the bridge-on traffic at AUC&nbsp;0.466 &mdash; distinguishable from chance but <i>below</i> it, which the pre-registered gate refuses to call a leak. An unexplained pooled-correlator artifact, explicitly not a padding effect (this is the no-pad arm).</figcaption>
+  </figure>
+
+  <!-- FIG 4: RQ2-P1 -->
+  <figure class="figure">
+    <svg viewBox="0 0 920 210" role="img" aria-label="RQ2-P1 federation shrinks anonymity set">
+      <g font-family="sans-serif">
+        <!-- baseline zero at y=45 -->
+        <line x1="90" y1="45" x2="820" y2="45" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="912" y="49" text-anchor="end" font-size="11.5" fill="#5b6b82">&Delta;H = 0</text>
+        <!-- scale: 0 at y=45, -1.2 bits at y=180 => 112.5 px/bit -->
+        <g text-anchor="end" font-size="11" fill="#94a3b8">
+          <text x="82" y="49">0.0</text>
+          <text x="82" y="105">&minus;0.5</text>
+          <text x="82" y="161">&minus;1.0</text>
+        </g>
+        <line x1="86" y1="101" x2="90" y2="101" stroke="#cbd5e1"/><line x1="86" y1="157" x2="90" y2="157" stroke="#cbd5e1"/>
+        <!-- bar: 0 to -0.9587 => y 45 to 45+0.9587*112.5=152.9 ; center x=300 width 120 -->
+        <rect x="240" y="45" width="120" height="107.9" fill="#fcecd6" stroke="#b45309" stroke-width="1.5"/>
+        <!-- CI whisker -1.0559..-0.8641 => y 163.8..142.2 at x=300 -->
+        <line x1="300" y1="142.2" x2="300" y2="163.8" stroke="#8a4408" stroke-width="2.5"/>
+        <line x1="288" y1="142.2" x2="312" y2="142.2" stroke="#8a4408" stroke-width="2.5"/>
+        <line x1="288" y1="163.8" x2="312" y2="163.8" stroke="#8a4408" stroke-width="2.5"/>
+        <text x="300" y="185" text-anchor="middle" font-size="12.5" font-weight="700" fill="#b45309">&Delta;H = &minus;0.96 bits</text>
+        <text x="300" y="201" text-anchor="middle" font-size="11" fill="#8a4408">CI [&minus;1.06, &minus;0.86] &middot; Holm-significant</text>
+        <!-- annotation -->
+        <text x="560" y="95" font-size="14" font-weight="700" fill="#b45309">Federation SHRINKS the anonymity set</text>
+        <text x="560" y="118" font-size="12.5" fill="#334155">the <tspan font-style="italic">opposite</tspan> of RQ2's motivating hypothesis &mdash;</text>
+        <text x="560" y="136" font-size="12.5" fill="#334155">reported with equal prominence, not re-framed as</text>
+        <text x="560" y="154" font-size="12.5" fill="#334155">"federation helps". (Mechanism resolved in Fig&nbsp;5.)</text>
+      </g>
+    </svg>
+    <figcaption><span class="fig-num">Figure 4.</span> <b>RQ2-P1 &mdash; anonymity-set effect of federation.</b> Under the ratified adversary posterior, federating across houses reduces the per-circuit anonymity set by ~0.96 bits vs a matched-N single house &mdash; a genuine Holm-significant negative.</figcaption>
+  </figure>
+
+  <!-- FIG 5: RQ2-P3 mix (headline) -->
+  <figure class="figure">
+    <svg viewBox="0 0 920 340" role="img" aria-label="RQ2-P3 unique-bridge artifact versus shared-pool mix">
+      <g font-family="sans-serif">
+        <text x="230" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="#b45309">Lead as-instrumented: UNIQUE bridge / circuit</text>
+        <text x="690" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="#15803d">Mechanism study: SHARED willing-bridge pool</text>
+        <line x1="460" y1="40" x2="460" y2="250" stroke="#e3e8ef" stroke-width="1.5"/>
+
+        <!-- LEFT: unique bridges -->
+        <g>
+          <!-- circuits -->
+          <g fill="#1d4ed8"><circle cx="70" cy="70" r="8"/><circle cx="70" cy="120" r="8"/><circle cx="70" cy="170" r="8"/><circle cx="70" cy="220" r="8"/></g>
+          <!-- bridges unique -->
+          <g fill="#fcecd6" stroke="#b45309" stroke-width="1.5">
+            <rect x="250" y="58" width="52" height="24" rx="5"/><rect x="250" y="108" width="52" height="24" rx="5"/>
+            <rect x="250" y="158" width="52" height="24" rx="5"/><rect x="250" y="208" width="52" height="24" rx="5"/>
+          </g>
+          <g stroke="#b45309" stroke-width="1.6">
+            <line x1="78" y1="70" x2="250" y2="70"/><line x1="78" y1="120" x2="250" y2="120"/>
+            <line x1="78" y1="170" x2="250" y2="170"/><line x1="78" y1="220" x2="250" y2="220"/>
+          </g>
+          <g fill="#8a4408" font-size="10" text-anchor="middle"><text x="276" y="74">b1</text><text x="276" y="124">b2</text><text x="276" y="174">b3</text><text x="276" y="224">b4</text></g>
+          <text x="360" y="120" font-size="12" fill="#334155">every signature</text>
+          <text x="360" y="138" font-size="12" fill="#334155">unique &rarr; set size 1</text>
+          <text x="360" y="164" font-size="13" font-weight="700" fill="#b45309">H &asymp; 0 by</text>
+          <text x="360" y="182" font-size="13" font-weight="700" fill="#b45309">construction</text>
+        </g>
+
+        <!-- RIGHT: shared pool -->
+        <g>
+          <g fill="#1d4ed8"><circle cx="530" cy="70" r="8"/><circle cx="530" cy="120" r="8"/><circle cx="530" cy="170" r="8"/><circle cx="530" cy="220" r="8"/></g>
+          <g fill="#dcf2e2" stroke="#15803d" stroke-width="1.6">
+            <rect x="700" y="83" width="52" height="24" rx="5"/><rect x="700" y="183" width="52" height="24" rx="5"/>
+          </g>
+          <g stroke="#15803d" stroke-width="1.6">
+            <line x1="538" y1="70" x2="700" y2="95"/><line x1="538" y1="120" x2="700" y2="95"/>
+            <line x1="538" y1="170" x2="700" y2="195"/><line x1="538" y1="220" x2="700" y2="195"/>
+          </g>
+          <g fill="#166534" font-size="10" text-anchor="middle"><text x="726" y="99">B1</text><text x="726" y="199">B2</text></g>
+          <text x="800" y="120" font-size="12" fill="#334155">circuits SHARE a</text>
+          <text x="800" y="138" font-size="12" fill="#334155">signature &rarr; sets grow</text>
+          <text x="800" y="164" font-size="13" font-weight="700" fill="#15803d">H rises = MIX</text>
+        </g>
+
+        <!-- bottom trend panel -->
+        <g transform="translate(0,258)">
+          <text x="60" y="8" font-size="12" font-weight="700" fill="#151d2b">Dose-response (confirmatory, 13,500 circuits):</text>
+          <!-- mini axes -->
+          <line x1="560" y1="12" x2="560" y2="66" stroke="#94a3b8" stroke-width="1.2"/>
+          <line x1="560" y1="66" x2="760" y2="66" stroke="#94a3b8" stroke-width="1.2"/>
+          <text x="548" y="16" text-anchor="end" font-size="9.5" fill="#94a3b8">H</text>
+          <text x="760" y="80" text-anchor="end" font-size="9.5" fill="#94a3b8">concentration &rarr;</text>
+          <!-- rising trend -->
+          <line x1="566" y1="60" x2="756" y2="20" stroke="#15803d" stroke-width="2.5"/>
+          <g fill="#15803d"><circle cx="590" cy="55" r="3"/><circle cx="640" cy="46" r="3"/><circle cx="690" cy="34" r="3"/><circle cx="740" cy="23" r="3"/></g>
+          <text x="60" y="30" font-size="12.5" fill="#334155">H1 Spearman <tspan font-weight="700" fill="#15803d">&rho; = +0.62</tspan> [+0.59, +0.65] &nbsp;&middot;&nbsp; H2 slope <tspan font-weight="700" fill="#15803d">&beta; = +0.71</tspan> [+0.62, +0.79]</text>
+          <text x="60" y="50" font-size="12.5" fill="#334155">H3 joint &rarr; <tspan font-weight="700" fill="#15803d">RESOLVED = MIX</tspan>. Concentration &uarr; &rArr; anonymity &uarr;,</text>
+          <text x="60" y="68" font-size="12.5" fill="#334155">correcting the lead "shrink" as a unique-bridge artifact.</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption><span class="fig-num">Figure 5.</span> <b>RQ2-P3 &mdash; the mix mechanism (headline correction).</b> The lead topology assigned a <i>fresh</i> bridge per circuit, making every exit signature unique and driving H&asymp;0 by injective construction &mdash; not by funnelling. Re-instrumented as a finite <i>shared</i> pool, concentration and entropy rise together (&rho;&nbsp;+0.62): a shared bridge <b>mixes</b>. This qualifies the lead RQ2-P1 shrink without overwriting it. <i>Disclosure: the frozen calibration dry-pass already previewed this direction (&rho; 0&rarr;+0.838); the two-sided pre-commitment stands.</i></figcaption>
+  </figure>
+
+  <!-- FIG 6: RQ3 -->
+  <figure class="figure">
+    <svg viewBox="0 0 920 260" role="img" aria-label="RQ3 double null">
+      <g font-family="sans-serif">
+        <!-- panel A: retention -->
+        <text x="150" y="26" text-anchor="middle" font-size="12.5" font-weight="700" fill="#151d2b">Throughput retention</text>
+        <line x1="60" y1="180" x2="250" y2="180" stroke="#94a3b8" stroke-width="1.2"/>
+        <g>
+          <rect x="78" y="70" width="34" height="110" fill="#e8edf3" stroke="#64748b"/><text x="95" y="196" text-anchor="middle" font-size="10" fill="#5b6b82">static</text>
+          <rect x="133" y="70" width="34" height="110" fill="#e8edf3" stroke="#64748b"/><text x="150" y="196" text-anchor="middle" font-size="10" fill="#5b6b82">random</text>
+          <rect x="188" y="71" width="34" height="109" fill="#d7ede9" stroke="#0f766e"/><text x="205" y="196" text-anchor="middle" font-size="10" fill="#0f766e">agent</text>
+        </g>
+        <text x="150" y="60" text-anchor="middle" font-size="11" fill="#334155">all &asymp; 0.99 (ceiling)</text>
+        <text x="150" y="224" text-anchor="middle" font-size="11.5" fill="#b45309">margin &minus;0.6pp</text>
+        <text x="150" y="240" text-anchor="middle" font-size="10.5" fill="#8a4408">[&minus;1.58,+0.39] &middot; gate +10pp</text>
+
+        <!-- panel B: latency -->
+        <text x="460" y="26" text-anchor="middle" font-size="12.5" font-weight="700" fill="#151d2b">Added latency (agent)</text>
+        <line x1="330" y1="120" x2="590" y2="120" stroke="#94a3b8" stroke-width="1.2"/>
+        <text x="330" y="138" font-size="10" fill="#94a3b8">0</text>
+        <!-- budget line at 100ms; scale 0..120ms over 330..590 (260px) => 2.166px/ms; but negative region left of 0? put 0 at x=430 -->
+        <line x1="430" y1="70" x2="430" y2="150" stroke="#64748b" stroke-width="1.3" stroke-dasharray="4 3"/>
+        <text x="430" y="64" text-anchor="middle" font-size="10" fill="#64748b">0 ms</text>
+        <!-- 100ms budget: x=430+100*1.5=580 -->
+        <line x1="580" y1="78" x2="580" y2="150" stroke="#15803d" stroke-width="1.4" stroke-dasharray="4 3"/>
+        <text x="580" y="72" text-anchor="middle" font-size="10" fill="#15803d">budget 100</text>
+        <!-- point -13.5 (x=430-20.25=409.75), CI -52.1..+34.9 (x=430-78.15=351.85 .. 430+52.35=482.35) -->
+        <line x1="351.85" y1="120" x2="482.35" y2="120" stroke="#0f766e" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="409.75" cy="120" r="6" fill="#0f766e"/>
+        <text x="460" y="176" text-anchor="middle" font-size="11.5" fill="#0f766e">&minus;13.5 ms [&minus;52.1, +34.9]</text>
+        <text x="460" y="192" text-anchor="middle" font-size="10.5" fill="#0f766e">within budget (not slower)</text>
+
+        <!-- panel C: rebuild AUC -->
+        <text x="770" y="26" text-anchor="middle" font-size="12.5" font-weight="700" fill="#151d2b">Rebuild fingerprint AUC</text>
+        <line x1="650" y1="120" x2="890" y2="120" stroke="#94a3b8" stroke-width="1.2"/>
+        <!-- scale 0.4..0.8 over 650..890 (240px)=600px/unit -->
+        <g text-anchor="middle" font-size="9.5" fill="#94a3b8"><text x="650" y="138">0.40</text><text x="770" y="138">0.60</text><text x="890" y="138">0.80</text></g>
+        <!-- gate 0.60 at x=770 -->
+        <line x1="770" y1="72" x2="770" y2="120" stroke="#b45309" stroke-width="1.4" stroke-dasharray="4 3"/>
+        <text x="770" y="66" text-anchor="middle" font-size="10" fill="#b45309">gate 0.60</text>
+        <!-- point 0.587 x=650+(0.587-0.4)*600=650+112.2=762.2 ; CI 0.458..0.703 => 684.8 .. 831.8 -->
+        <line x1="684.8" y1="120" x2="831.8" y2="120" stroke="#64748b" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="762.2" cy="120" r="6" fill="#64748b"/>
+        <text x="770" y="176" text-anchor="middle" font-size="11.5" fill="#334155">AUC 0.587 [0.458, 0.703]</text>
+        <text x="770" y="192" text-anchor="middle" font-size="10.5" fill="#b45309">CI crosses 0.60 &rarr; not excluded (n=30)</text>
+
+        <text x="460" y="246" text-anchor="middle" font-size="12.5" fill="#334155">Verdict: <tspan font-weight="700" fill="#64748b">H0 on both counts</tspan> &mdash; the local open-weight agent neither beats baselines nor is certifiably fingerprint-free on this grid.</text>
+      </g>
+    </svg>
+    <figcaption><span class="fig-num">Figure 6.</span> <b>RQ3 &mdash; churn-resilient agent selection (double null).</b> At the pinned churn (kp30/steps20) every selector heals ~all drops, so there is no headroom for the +10pp gain; the agent is not slower (latency within budget) but the rebuild-timing classifier cannot be excluded at n=30. Both P1 and P2 are honest nulls.</figcaption>
+  </figure>
+
+  <!-- FIG 7: Holm-7 forest -->
+  <figure class="figure">
+    <svg viewBox="0 0 920 300" role="img" aria-label="Authoritative Holm-7 forest">
+      <g font-family="sans-serif">
+        <text x="60" y="24" font-size="13" font-weight="700" fill="#151d2b">Authoritative Holm-7 (frozen size-7 family) &mdash; adjusted p</text>
+        <!-- axis 0..0.6 over x 300..860 -->
+        <line x1="300" y1="44" x2="300" y2="272" stroke="#cbd5e1" stroke-width="1.2"/>
+        <!-- alpha .05 line: x=300+ (0.05/0.6)*560 = 300+46.7=346.7 -->
+        <line x1="346.7" y1="44" x2="346.7" y2="272" stroke="#b45309" stroke-width="1.4" stroke-dasharray="5 4"/>
+        <text x="346.7" y="40" text-anchor="middle" font-size="10.5" fill="#b45309">&alpha;=.05</text>
+        <g text-anchor="middle" font-size="10" fill="#94a3b8">
+          <text x="300" y="288">0</text><text x="580" y="288">0.30</text><text x="860" y="288">0.60</text>
+        </g>
+        <!-- rows: y positions -->
+        <!-- helper: adjp x = 300 + adjp/0.6*560 -->
+        <g font-size="12">
+          <!-- RQ1-P1 survive, adjp 0 -->
+          <text x="290" y="70" text-anchor="end" fill="#0f766e" font-weight="700">RQ1-P1 leak</text>
+          <circle cx="300" cy="66" r="6" fill="#0f766e"/>
+          <text x="315" y="70" font-size="11" fill="#0f766e">survives &middot; no leak</text>
+          <!-- RQ2-P1 survive -->
+          <text x="290" y="102" text-anchor="end" fill="#0f766e" font-weight="700">RQ2-P1 federation</text>
+          <circle cx="300" cy="98" r="6" fill="#0f766e"/>
+          <text x="315" y="102" font-size="11" fill="#0f766e">survives &middot; shrink</text>
+          <!-- RQ2-P3 survive -->
+          <text x="290" y="134" text-anchor="end" fill="#0f766e" font-weight="700">RQ2-P3 mechanism</text>
+          <circle cx="300" cy="130" r="6" fill="#0f766e"/>
+          <text x="315" y="134" font-size="11" fill="#0f766e">survives &middot; mix (corrects shrink)</text>
+          <!-- RQ1-P2 0.365 x=300+340.7=640.7 -->
+          <text x="290" y="166" text-anchor="end" fill="#64748b">RQ1-P2 padding</text>
+          <line x1="300" y1="162" x2="640.7" y2="162" stroke="#e2e8f0" stroke-width="1"/>
+          <circle cx="640.7" cy="162" r="5.5" fill="#94a3b8"/>
+          <text x="655" y="166" font-size="10.5" fill="#94a3b8">0.365</text>
+          <!-- RQ3-P2 0.511 x=300+477=777 -->
+          <text x="290" y="198" text-anchor="end" fill="#64748b">RQ3-P2 fingerprint</text>
+          <line x1="300" y1="194" x2="777" y2="194" stroke="#e2e8f0" stroke-width="1"/>
+          <circle cx="777" cy="194" r="5.5" fill="#94a3b8"/>
+          <text x="791" y="198" font-size="10.5" fill="#94a3b8">0.511</text>
+          <!-- RQ3-P1-perf 0.511 -->
+          <text x="290" y="230" text-anchor="end" fill="#64748b">RQ3-P1-perf</text>
+          <line x1="300" y1="226" x2="777" y2="226" stroke="#e2e8f0" stroke-width="1"/>
+          <circle cx="777" cy="226" r="5.5" fill="#94a3b8"/>
+          <text x="791" y="230" font-size="10.5" fill="#94a3b8">0.511</text>
+          <!-- RQ3-P1-latency 0.511 -->
+          <text x="290" y="262" text-anchor="end" fill="#64748b">RQ3-P1-latency</text>
+          <line x1="300" y1="258" x2="777" y2="258" stroke="#e2e8f0" stroke-width="1"/>
+          <circle cx="777" cy="258" r="5.5" fill="#94a3b8"/>
+          <text x="791" y="262" font-size="10.5" fill="#94a3b8">0.511</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption><span class="fig-num">Figure 7.</span> <b>Authoritative Holm-7.</b> Over the frozen family of seven, three hypotheses survive at &alpha;=.05: <span style="color:#0f766e;font-weight:700">RQ1-P1</span> (no leak), <span style="color:#0f766e;font-weight:700">RQ2-P1</span> (shrink), and <span style="color:#0f766e;font-weight:700">RQ2-P3</span> (mix). The RQ2-P3 slot carries the mechanism-corrected primary statistic, superseding the lead's degenerate as-instrumented test. This is the authoritative correction; the lead paper's conservative partial embedding remains valid and never under-corrects.</figcaption>
+  </figure>
+
+  <div class="legend">
+    <span><i class="sw" style="background:#0f766e"></i> instrument / survives Holm</span>
+    <span><i class="sw" style="background:#15803d"></i> mix / positive</span>
+    <span><i class="sw" style="background:#b45309"></i> negative / gate</span>
+    <span><i class="sw" style="background:#64748b"></i> null / does not survive</span>
+    <span><i class="sw" style="background:#1d4ed8"></i> client / house node</span>
+  </div>
+</section>
+
+<!-- ================= LEAD PAPER ================= -->
+<section id="lead-paper">
+  <h2 class="sh">Lead paper &mdash; full text</h2>
+  <details class="paperwrap" open>
+    <summary>Consent-Gated Federated Onion Routing: Linkability &amp; Anonymity-Set Effects (G4 + RQ1 + RQ2) <span class="hint">click to collapse</span></summary>
+    <article class="paper"><h1 id="consent-gated-federated-onion-routing-linkability-and-anonymity-set-effects-of-an-in-band-acceptreject-relay-model">Consent-Gated Federated Onion Routing: Linkability and Anonymity-Set Effects of an In-Band Accept/Reject Relay Model</h1>
+<p><strong>Draft — SS4 lead paper (G4 + RQ1 + RQ2). Results/Discussion filled from the frozen §6 pass.</strong></p>
+<blockquote>
+<p><strong>Blinding status (prereg §2, binding).</strong> Sections 1–4, 7 were written <strong>blind</strong> while the
+confirmatory battery was still running. Sections 5–6 were filled <strong>once</strong>, after the full
+battery completed (180/180 cells) and the raw outputs were sealed (immutability anchor
+<code>SHA256SUMS.txt</code>), from the <strong>single</strong> frozen §6 inferential pass
+(<code>docs/stage-06-analysis.md</code>; results <code>output/sor-confirmatory/20260720T060132Z/analysis/stage06-results.json</code>).
+No number was inspected before that seal. The frozen prereg
+(<code>sor-consent-prereg.md</code>, SHA-256
+<code>f22331a72e0d0ccf38b787e63acabbe9d666456ec76076787a6d545c3193425b</code>) is authoritative and
+unedited.</p>
+<p><strong>RQ2 posterior (ratified).</strong> The RQ2 dependent variable — a <em>per-circuit adversary sender
+posterior</em> — has a construction the frozen prereg left open; the construction (uniform mass
+over the observation-consistent anonymity set, grounded only in [Serjantov2002; Diaz2002]) was
+pre-specified <strong>blind</strong> and <strong>ratified by the operator</strong> before any RQ2 number was computed
+(<code>docs/stage-05-rq2-posterior-clarification.md</code>, <strong>RATIFIED</strong>). It is recomputable offline from
+the sealed per-circuit seeds.</p>
+<p><strong>Headline (honest null/negative).</strong> Neither hoped-for effect is confirmed. The bridge shows
+<strong>no measurable linkability leak</strong> (RQ1-P1 AUC below chance), and federation <strong>shrinks</strong> the
+anonymity set rather than growing it (RQ2-P1, a Holm-significant <em>negative</em>). We report this
+plainly — nulls and negatives are results.</p>
+</blockquote>
+<hr />
+<h2 id="abstract-skeleton-quantitative-claims-held-until-data-rq2-ratification">Abstract <em>(skeleton — quantitative claims held until data + RQ2 ratification)</em></h2>
+<p>Onion-routing systems typically admit any relay that meets a directory's technical criteria;
+they do not model <strong>relay consent</strong> — a host's in-band, per-circuit choice to carry a given
+flow. We build and measure a <strong>consent-gated, federated, nested-SSH relay data plane</strong> in which
+every hop must explicitly accept or reject each circuit through a signed in-band handshake
+(Ed25519-authenticated, X25519 per-hop credentials), and in which relays are organized into
+<strong>houses</strong> that federate either through a shared <strong>bridge</strong> or through a <strong>directory</strong>. Treating
+this as a <em>measurement instrument</em> for a trust model's exposure (not a service that provides
+anonymity), we ask two confirmatory questions on a single-laptop isolated-docker grid (two non-forwarding phones pinned): <strong>(RQ1)</strong>
+does a shared bridge introduce a measurable flow-linkability leak between a circuit's entry and
+exit segments, and does cover padding remove it; <strong>(RQ2)</strong> does federating relays across houses
+<strong>grow or shrink</strong> the anonymity set an adversary faces, and is any effect explained by
+<strong>bridge-concentration funnelling</strong>. All detectors are frozen and calibrated on
+known-linked/known-unlinked and equiprobable-sender fixtures before any confirmatory cell is run;
+all inference is bootstrap-based with BCa 95% CIs, Holm–Bonferroni-corrected across the
+confirmatory family. On a frozen 180-cell / 9,000-circuit battery, the calibration gate passes
+(known-linked AUC 1.00, known-unlinked 0.50) and <strong>neither hypothesis is confirmed</strong>: the bridge
+shows <strong>no measurable entry↔exit leak</strong> (RQ1-P1 AUC = 0.466, 95% CI [0.452, 0.480], <em>below</em>
+chance), so padding has nothing to suppress (RQ1-P2 ΔAUC = +0.011, CI [−0.002, +0.023],
+Holm-adjusted p = 0.46); and federation <strong>shrinks</strong> the anonymity set rather than growing it
+(RQ2-P1 ΔH = −0.96 bits, CI [−1.06, −0.86], Holm-significant), a genuine <strong>negative</strong> we report
+with equal prominence. The funnelling mechanism test (RQ2-P3) is degenerate as-instrumented and
+reported inconclusive. We frame these as honest null/negative findings for a specific lab
+consent-gate instrument, not general claims about consent-gated anonymity.</p>
+<hr />
+<h2 id="1-introduction">1. Introduction</h2>
+<p>Anonymous-communication systems from onion routing [Reed1997; Dingledine2004] to its SSH-based
+descendant SOR [Egners2012] share a membership model that is essentially <em>permissionless at the
+relay</em>: a node participates if it meets directory or protocol criteria, and the routing layer
+does not represent whether a host <strong>consents</strong> to carry a particular circuit. Yet in
+social-trust and friend-to-friend designs — Freenet [Clarke2000], membership-concealing overlays
+[Vasserman2009], and social-graph routers such as Pisces [Mittal2012] and X-Vine [Mittal2012b] —
+<em>who is willing to relay for whom</em> is a first-class property. No existing system, to our
+knowledge, makes <strong>per-circuit relay consent an in-band, cryptographically-authenticated protocol
+step</strong> and then <strong>measures the privacy consequences</strong> of that gate. That gap — an
+accept/reject relay model whose linkability and anonymity-set behaviour are empirically
+characterised — is the novelty this work targets (<strong>G4</strong>).</p>
+<p>We do not propose consent-gating as a deployed anonymity service. We build it as a
+<strong>defensive-measurement instrument</strong>: a controlled data plane whose knobs (bridge on/off, cover
+padding, federation topology) let us <em>measure</em> how a consent gate reshapes an adversary's view.
+Two consequences of the gate are non-obvious and testable:</p>
+<ol>
+<li>
+<p><strong>A shared bridge is a linkability hazard (RQ1).</strong> When federated houses route through one
+   shared bridge node, that node observes both the entry and exit segments of circuits crossing
+   it. Modern flow-correlation attacks link such segments at high accuracy from timing/volume
+   alone [NasrBH18; OhYMH22; RahmanSMGW20]. We ask whether our bridge exhibits a <strong>measurable</strong>
+   entry↔exit correlation leak, and whether <strong>cover padding</strong> closes it.</p>
+</li>
+<li>
+<p><strong>Consent-gating can funnel, not just spread (RQ2).</strong> Federation intuitively enlarges the
+   candidate-sender set and thus anonymity [Serjantov2002; Diaz2002]. But a consent gate means
+   only <em>willing</em> relays carry traffic; if willingness concentrates on a few bridges, circuits
+   funnel through them and the effective anonymity set may <strong>shrink</strong>. We therefore treat the
+   sign of the federation effect as <strong>unknown a priori</strong> and report a shrink as prominently as a
+   growth.</p>
+</li>
+</ol>
+<p><strong>Contributions.</strong> (i) The design and instrument-grade implementation of a consent-gated,
+federated, nested-SSH relay data plane with signed in-band accept/reject and per-hop X25519
+credentials (§3, §4). (ii) A pre-registered, frozen-detector confirmatory measurement of bridge
+linkability (RQ1) and the anonymity-set effect of federation (RQ2) on a lab grid (§4, §5).
+(iii) An honest, two-sided characterisation — including the <strong>funnelling</strong> mechanism test — of
+when consent-gated federation helps or harms anonymity. <strong>On this instrument the answer is a
+double null/negative: no bridge leak to close, and federation that measurably <em>reduces</em> the
+anonymity set</strong> — reported here without spin as the paper's evidentiary core.</p>
+<p><strong>Scope.</strong> Claims are deliberately restricted to the tested lab topology and scale (a single laptop's isolated-docker containers; two phones pinned but non-forwarding; few houses); this is not an internet-scale or global-passive-adversary result (§7).
+The paired <strong>churn-resilience</strong> question (RQ3) and a QUIC/<code>ssh3</code> transport arm [Michel2023] are
+pre-registered but held for a companion paper; this lead paper covers G4 + RQ1 + RQ2 only.</p>
+<hr />
+<h2 id="2-related-work">2. Related work</h2>
+<p><strong>Onion routing and SSH-based relays.</strong> Mixes and onion routing originate with Chaum [Chaum1981]
+and Reed–Syverson–Goldschlag [Reed1997], with Tor [Dingledine2004] as the dominant deployment.
+SOR [Egners2012] is the <strong>direct prior art</strong>: it layers onion routing over stock SSH tunnels,
+which is exactly our transport substrate. Nesting SSH inside SSH raises the well-known
+TCP-over-TCP throughput/latency pathology [Honda2005], motivating our latency-aware measurement
+and a (exploratory) QUIC-based <code>ssh3</code> transport [Michel2023]; UDP-based latency work on onion
+services [AlAzad2023] is complementary. <strong>None of these model per-circuit relay consent</strong>, which
+is the axis we add and measure.</p>
+<p><strong>Flow correlation / linkability (RQ1).</strong> That an adversary seeing two segments of a flow can
+link them is established: low-cost traffic analysis [MurdochD05], realistic-adversary correlation
+on Tor [JohnsonWJSS13], and deep-learning correlators DeepCorr [NasrBH18] and DeepCoFFEA
+[OhYMH22] achieve high linking accuracy; packet-timing (Tik-Tok [RahmanSMGW20]) and deep
+fingerprinting [SirinamIJW18] show timing/volume suffice. We do <strong>not</strong> advance correlator
+state-of-the-art; we adopt a <strong>frozen, fixture-calibrated</strong> correlator (calibration gate §5) and
+use its AUC purely as an <em>instrument reading</em> of whether our bridge leaks — the contribution is
+the consent-gate/bridge measurement, not the attack.</p>
+<p><strong>Anonymity metrics and Sybil/directory concerns (RQ2).</strong> We quantify anonymity with the
+information-theoretic set metrics of Serjantov–Danezis [Serjantov2002] (entropy of the adversary
+posterior; effective set size S = 2^H) and Díaz et al. [Diaz2002] (normalized degree
+d = H/log₂N). Federation across mutually-distrusting houses evokes decentralised-directory and
+Sybil questions [Douceur2002; Winter2016] and statistical-disclosure exposure over repeated
+circuits [Danezis2003]. Our <strong>matched-N</strong> design isolates the <em>topology</em> effect (federated vs.
+single-house at equal total node count) rather than a node-count artifact.</p>
+<p><strong>Social-trust / consent-adjacent designs (G4 neighbours).</strong> The closest neighbours treat
+relaying willingness or social linkage as structural: Freenet's friend-to-friend mode
+[Clarke2000], membership-concealing overlays [Vasserman2009], Drac's social low-volume comms
+[Danezis2010], and social-graph routers Pisces [Mittal2012] / X-Vine [Mittal2012b] / STor
+[Zhou2011]. These encode <em>trust in the graph</em>; <strong>none makes consent an in-band, per-circuit,
+signed accept/reject protocol step whose linkability and anonymity-set consequences are then
+measured</strong> — the specific gap G4 fills.</p>
+<hr />
+<h2 id="3-system-design-the-instrument">3. System design (the instrument)</h2>
+<p>The instrument is a nested-SSH relay data plane built into an existing zero-knowledge chat relay
+(hack-house), entirely within an isolated worktree. It has seven components (roadmap R1–R7); the
+subset load-bearing for this lead paper (RQ1 + RQ2, <code>static</code> selector, no model) is fully pinned
+by the freeze. Key mechanisms:</p>
+<ul>
+<li><strong>Consent handshake (R5).</strong> Each hop receives a signed in-band consent <em>request</em> and must
+  <strong>accept or reject</strong> before it will carry the circuit. Requests are <strong>Ed25519-signed</strong> by the
+  originating persona and <strong>verified before acceptance</strong>; an unsigned or forged request is
+  rejected. Per-hop credentials are <strong>X25519-sealed to the host's public key</strong>, so a hop
+  credential decrypts <em>only</em> with that host's private key (no shared-symmetric secret).</li>
+<li><strong>Nested-SSH circuits (R4).</strong> A circuit is a chain of SSH tunnels across grid hops; the entry
+  and exit <strong>segments</strong> are the observable units for RQ1. Every hop's traffic is captured to an
+  immutable per-hop pcap, written once and checksummed.</li>
+<li><strong>Federation / bridge (R6).</strong> Relays are grouped into <strong>houses</strong>. Houses federate via a shared
+  <strong>bridge</strong> node or via a <strong>directory</strong>; a circuit's federation path is chosen under
+  split-knowledge topology constraints. The bridge is the shared observation point RQ1 probes and
+  the concentration point RQ2's funnelling test probes.</li>
+<li><strong>Determinism &amp; provenance (R1–R3).</strong> All stochastic behaviour derives from a single
+  <code>--sor-seed</code>; the seed, git SHA, and node-role→device mapping are echoed into an immutable
+  <code>manifest.json</code>, and every relay event is appended to a SHA-256-sealed <code>events.jsonl</code>.</li>
+<li><strong>Containment (binding).</strong> Every forwarder runs in an <strong>isolated engine only</strong>
+  (<code>assert engine != local</code> or the run refuses). All traffic is self-generated to our own
+  fixtures, lab-only. No external target, no live-network relay.</li>
+</ul>
+<hr />
+<h2 id="4-methods-pre-registered-frozen">4. Methods (pre-registered; frozen)</h2>
+<p>This study is a <strong>confirmatory factorial controlled comparison</strong>; the design, variables, seeds,
+detectors, and analysis were frozen and hashed on 2026-07-19 before any confirmatory cell ran.</p>
+<h3 id="41-design-matrix">4.1 Design matrix</h3>
+<p>Cells are organised per RQ with the other factors held at their declared control:</p>
+<ul>
+<li><strong>RQ1 (linkability):</strong> bridge ∈ {off, on, on+padding} — 3 levels; topology held at
+  single-house, selector <code>static</code>. (bridge-off+padding is declared <strong>N/A</strong> — padding is defined
+  only for bridge-on.)</li>
+<li><strong>RQ2 (anonymity set):</strong> topology ∈ {1-house-N, bridge-federated, directory-federated} at
+  <strong>matched total node count N</strong> — 3 levels; bridge held off, selector <code>static</code>.</li>
+</ul>
+<p>Full crossing is not run. Run order is randomised within each cell and the control arm is
+interleaved before and after treatments so grid calibration drift is caught. All stochastic
+elements are seed-controlled.</p>
+<h3 id="42-dependent-variables">4.2 Dependent variables</h3>
+<ul>
+<li><strong>RQ1 — correlation AUC.</strong> Area under the ROC of the frozen flow-correlation detector scoring
+  (entry-segment, exit-segment) pairs as same/different circuit, measured from the real per-hop
+  pcaps. Unit of analysis: the <strong>(entry, exit) pair</strong>; 95% CI by <strong>bootstrap over circuit
+  pairs</strong>.</li>
+<li><strong>RQ2 — anonymity-set entropy H.</strong> Shannon entropy of the <strong>adversary's posterior over
+  candidate senders per circuit</strong>; effective set size S = 2^H [Serjantov2002], normalized
+  d = H/log₂N [Diaz2002]; <strong>Miller–Madow</strong> finite-sample bias correction; 95% CI by <strong>bootstrap
+  over circuits</strong>. Unit of analysis: the <strong>circuit</strong>. <strong>ΔH = H(federated) − H(single-house,
+  matched N).</strong><blockquote>
+<p><em>Construction (ratified).</em> The prereg pins this DV as a per-circuit posterior but does not
+give the posterior <strong>construction rule</strong>. The construction — uniform mass over the
+observation-consistent anonymity set A_i (the circuits sharing an exit signature within a
+run), grounded only in [Serjantov2002; Diaz2002] — was pre-specified <strong>blind</strong> and
+<strong>ratified</strong> in <code>docs/stage-05-rq2-posterior-clarification.md</code>. It is recomputed <strong>offline</strong>
+from the sealed per-circuit seeds (deterministic circuit assembly), so no RQ2 number depended
+on inspecting the battery before it sealed.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="43-sampling-power">4.3 Sampling &amp; power</h3>
+<p><strong>R = 30</strong> independent seeded runs per cell; each run builds <strong>C = 50</strong> circuits (≥ 1500 scored
+pairs per cell for RQ1). The target is <strong>precision, not a formal power analysis</strong>: ≥ 1500 pairs
+yields an expected bootstrap 95% CI half-width on AUC ≤ 0.03, enough to resolve the RQ1 floor
+away from 0.5. One base seed <strong>S0 = 20260719</strong>; per-cell seed = <code>SHA256(S0 ‖ cell_id ‖ run_index)</code>
+truncated to u64, echoed into every manifest. <strong>Stopping rule:</strong> all cells × R runs run to
+completion — <strong>no optional stopping, no interim looks</strong>; an uninformative cell is reported
+<strong>inconclusive</strong>, never extended to chase significance.</p>
+<p><strong>Apparatus (disclosed).</strong> All relay hops ran as <strong>isolated Docker containers on a single engine
+host</strong> (the laptop; <code>grid/device-map.json</code>, <code>isolated_engine_host_count = 1</code>, Docker 27.5.1). The
+two phones were <strong>pinned consenting-node labels, not forwarders</strong> (probed reachable once at grid-pin;
+carried no measured traffic). Node distinctness is thus container-level
+(≥ 3 distinct containers per circuit), and matched-N is pinned from the containerised node count
+per manifest; cross-machine effects are out of scope (§7).</p>
+<h3 id="44-frozen-detectors-and-the-instrument-validation-gate">4.4 Frozen detectors and the instrument-validation gate</h3>
+<p>Detectors (correlator, entropy estimator, classifier) are written and <strong>calibrated only on the
+instrument-validation fixtures</strong> — known-linked/known-unlinked control pairs and
+equiprobable-sender synthetic sets — <strong>before any confirmatory cell is run</strong>; <strong>no per-cell
+tuning</strong> is permitted. The battery ran only after all six boolean gate items passed green:
+(1) 3-hop end-to-end delivery with per-hop pcap + checksum; (2) seeded reproducibility (same seed
+→ identical circuit-build sequence); (3) correlator calibration (known-linked AUC ≈ 1,
+known-unlinked ≈ 0.5); (4) entropy calibration (H = log₂N for N equiprobable senders);
+(5) isolation (<code>assert engine != local</code> or refuse); (6) provenance integrity (replayed fixture →
+schema-valid <code>events.jsonl</code> whose SHA-256 matches the manifest; append-only).</p>
+<h3 id="45-analysis-plan">4.5 Analysis plan</h3>
+<p>Effect size + 95% CI for <strong>every</strong> comparison; p-values never reported alone. All inference is
+bootstrap/permutation-based (10,000 resamples, <strong>BCa</strong> intervals; 3-seed spot-check to MC error).</p>
+<ul>
+<li><strong>RQ1-P1 (leak).</strong> Bridge-on correlation AUC, bootstrap 95% CI. <strong>Confirmation gate = CI
+  excludes 0.5</strong> (leak present); <strong>null</strong> if CI includes 0.5. Materiality is a <em>separate</em> label:
+  CI lower bound ≥ <strong>0.60</strong> ⇒ "material leak"; between 0.5 and 0.60 ⇒ "weak-but-real leak."</li>
+<li><strong>RQ1-P2 (padding efficacy).</strong> ΔAUC = AUC(bridge-on, no-pad) − AUC(bridge-on, +pad); <strong>paired</strong>
+  bootstrap 95% CI. Padding effective iff ΔAUC CI <strong>&gt; 0</strong>.</li>
+<li><strong>RQ2-P1 (federation effect, two-sided).</strong> ΔH bootstrap 95% CI; <strong>the sign is not presumed.</strong>
+  <strong>grow</strong> if CI &gt; 0; <strong>honest shrink (reported with equal prominence)</strong> if CI &lt; 0;
+  <strong>inconclusive</strong> if it spans 0.</li>
+<li><strong>RQ2-P3 (funnelling mechanism).</strong> Spearman ρ between top-<strong>k=3</strong> bridge concentration and
+  per-circuit H, 95% CI; negative ρ quantifies funnelling.</li>
+<li><strong>Multiple comparisons.</strong> Holm–Bonferroni over the frozen <strong>family of 7</strong> confirmatory tests
+  {RQ1-P1, RQ1-P2, RQ2-P1, RQ2-P3, RQ3-P1-perf, RQ3-P1-latency, RQ3-P2}; the 4 lead-paper tests
+  are reported at Holm-adjusted multipliers 7, 6, 5, 4 (conservative embedding — see
+  <code>docs/stage-05-holm-clarification.md</code>, ratified). EXPLORATORY results (QUIC transport; any
+  post-hoc contrast) are labelled and excluded from the confirmatory column.</li>
+<li><strong>Data exclusion (pre-data).</strong> A run is quarantined (logged, never silently dropped) <strong>only</strong>
+  on a data-integrity failure (SHA mismatch, pcap checksum failure, in-place edit, or
+  non-reproducing seed). <strong>No performance-based exclusions.</strong></li>
+<li><strong>Bootstrap implementation (method-faithful, not method-substituted).</strong> The frozen BCa
+  bootstrap does an O(n) leave-one-out jackknife whose per-fold statistic is the O(pos×neg) AUC
+  double loop — structurally intractable at the RQ1 scale (n = 75,000 pooled pairs; the RQ1-P2
+  ΔAUC evaluates AUC twice per resample). RQ1-P1 and RQ1-P2 CIs are therefore computed by a
+  performance-faithful bootstrap that reproduces the frozen <code>stats.bootstrap_ci</code> <strong>bit-for-bit</strong>
+  (identical <code>random.Random(seed)</code> resample sequence, a vectorised AUC proven equal to the frozen
+  detector including the average-rank tie path, and the frozen BCa endpoints/jackknife); a
+  committed <code>--verify</code> self-check asserts point/lo/hi/method agree to 1e-12. RQ2-P1 and RQ2-P3
+  remain on the unmodified frozen paths. No point estimate, CI gate, or decision is changed.</li>
+</ul>
+<hr />
+<h2 id="5-results">5. Results</h2>
+<p>All numbers below come from the single frozen §6 pass on the sealed 180-cell battery and are
+deterministically regenerable (<code>docs/stage-06-analysis.md</code>; seed S0 = 20260719; 10,000 BCa
+resamples; α = 0.05). Every reported <strong>decision</strong> is a pre-registered CI gate; p-values order only
+the Holm step-down.</p>
+<h3 id="51-instrument-validation-gate-report">5.1 Instrument-validation gate report</h3>
+<p>The battery ran only after all six boolean gate items passed; the confirmatory-relevant
+calibration, recomputed independently on the §5 synthetic fixtures (40 seeds), holds:
+<strong>known-linked mean AUC = 1.0000</strong> (criterion ≥ 0.95) and <strong>known-unlinked mean AUC = 0.5036</strong>
+(criterion 0.40–0.60). Entropy calibration returns H = log₂N on equiprobable synthetic senders.
+Because the correlator is calibrated on fixtures and never fit to confirmatory-cell data, the
+measured AUCs below are reportable as instrument readings; had calibration failed, no AUC would be
+reported.</p>
+<h3 id="52-rq1-bridge-linkability">5.2 RQ1 — bridge linkability</h3>
+<p><strong>RQ1-P1 (leak).</strong> On the bridge-on / no-pad arm the pooled (entry, exit) pair set (n = 75,000
+pairs; 1,500 linked / 73,500 unlinked) yields <strong>AUC = 0.4660, BCa 95% CI [0.4523, 0.4798]</strong>. The
+CI excludes 0.5 but lies <strong>below</strong> it, so the frozen gate returns <strong>anomaly-below-chance</strong>, <em>not</em>
+<code>leak</code>. The correlator does not link entry↔exit segments better than chance on the bridge-on
+traffic; it sits marginally below chance — an unexplained artifact of the pooled correlator on this
+as-instrumented traffic (this is the <strong>no-pad</strong> arm, so no cover stream is involved), not a
+linkability finding — so we report <strong>no measurable leak</strong>. The two-sided rejection at AUC = 0.5 is
+in the wrong direction and is not evidence of linkability.</p>
+<p><strong>RQ1-P2 (padding efficacy).</strong> Pairing the bridge-on / no-pad and bridge-on / +padding arms by
+shared run index (n = 30 paired runs) gives paired <strong>ΔAUC = +0.0113, BCa 95% CI [−0.0025,
++0.0234]</strong> (per-run ΔAUCᵢ range ≈ [−0.080, +0.081], straddling zero). The CI spans 0 → frozen gate
+<strong>padding-ineffective</strong> (raw p = 0.091). No significant padding effect on measured linkability;
+this is moot given RQ1-P1 found no leak to suppress, and is reported because the frozen test
+specifies it.</p>
+<h3 id="53-rq2-anonymity-set-effect-of-federation">5.3 RQ2 — anonymity-set effect of federation</h3>
+<p><strong>RQ2-P1 (federation effect, two-sided).</strong> Over the ratified per-circuit posterior (Miller–Madow
+H on the observation-consistent anonymity set), the federated arm (pooled bridge-federated +
+directory-federated, 3,000 circuits) versus matched-N single-house (1,500 circuits) gives
+<strong>ΔH = −0.9587 bits, BCa 95% CI [−1.0559, −0.8641]</strong>. The CI is strictly below 0 → frozen gate
+<strong>shrink</strong>. Federation, as instrumented, <strong>reduces</strong> the per-circuit anonymity set by ≈ 0.96 bits
+relative to a matched-N single house — the <em>opposite</em> of RQ2's motivating hypothesis. Per the
+two-sided pre-registration this negative is reported with equal prominence; we do <strong>not</strong> re-frame
+it as federation "helping."</p>
+<p><strong>RQ2-P3 (funnelling mechanism).</strong> Spearman ρ between top-k = 3 willing-bridge concentration and
+per-circuit H (bridge-federated arm, n = 1,500) is <strong>ρ = 0.0000, CI [0.0000, 0.0000]</strong>
+(percentile fallback) → <strong>inconclusive</strong>. The concentration series has <em>no variance</em>: the
+bridge-federated topology assigns a fresh willing bridge per circuit seed, so willing-bridge reuse
+is minimal and the top-3 concentration is effectively constant. Spearman is undefined on a
+zero-variance covariate. This is the <strong>as-instrumented degeneracy flagged in advance</strong> (§7; the
+stage-05 RQ2 instrument caveat), not a null of a well-posed mechanism test — the funnelling
+mechanism is <strong>not testable</strong> on this instrument as built.</p>
+<h3 id="54-holm-corrected-confirmatory-summary">5.4 Holm-corrected confirmatory summary</h3>
+<p>Holm–Bonferroni over the frozen family of 7 (reporting the 4 lead-paper tests at conservative
+multipliers 7, 6, 5, 4, ordered by ascending raw p):</p>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Effect</th>
+<th>Point</th>
+<th>95% CI (BCa)</th>
+<th>Frozen decision</th>
+<th>raw p</th>
+<th>Holm adj-p (m=7)</th>
+<th>Reject @ .05</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RQ1-P1</td>
+<td>AUC (bridge-on)</td>
+<td>0.4660</td>
+<td>[0.4523, 0.4798]</td>
+<td>anomaly-below-chance</td>
+<td>0.000</td>
+<td>0.000</td>
+<td>yes*</td>
+</tr>
+<tr>
+<td>RQ2-P1</td>
+<td>ΔH (fed − single)</td>
+<td>−0.9587 bits</td>
+<td>[−1.0559, −0.8641]</td>
+<td>shrink</td>
+<td>0.000</td>
+<td>0.000</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>RQ1-P2</td>
+<td>ΔAUC (nopad − pad)</td>
+<td>+0.0113</td>
+<td>[−0.0025, +0.0234]</td>
+<td>padding-ineffective</td>
+<td>0.091</td>
+<td>0.456</td>
+<td>no</td>
+</tr>
+<tr>
+<td>RQ2-P3</td>
+<td>Spearman ρ</td>
+<td>0.0000</td>
+<td>[0.0000, 0.0000]</td>
+<td>inconclusive</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p><code>*</code> RQ1-P1 rejects <code>H0: AUC = 0.5</code> in the <strong>wrong direction</strong> (below chance) and is therefore
+<strong>not</strong> evidence of a leak. Two tests survive Holm at α = 0.05: RQ1-P1 (anomaly-below-chance) and
+RQ2-P1 (shrink — a negative effect). One <strong>exploratory</strong> contrast (labelled, excluded from the
+Holm family): the bridge-federated-only ΔH = −3.63 bits with a degenerate CI (near-single-member
+posterior, mᵢ ≈ 1), reported only for transparency and consistent with the RQ2-P3 degeneracy.</p>
+<hr />
+<h2 id="6-discussion">6. Discussion</h2>
+<p><strong>A double null/negative, reported without spin.</strong> The two motivating hypotheses of the consent
+gate — that a shared bridge leaks entry↔exit linkability (RQ1) and that federation grows the
+anonymity set (RQ2) — are <strong>both unsupported</strong> on this instrument, and the one Holm-significant
+directional effect points <em>against</em> the design's motivation.</p>
+<p><strong>RQ1 — no bridge leak to close.</strong> The frozen, fixture-calibrated correlator (linked AUC 1.00,
+unlinked 0.50) reads the bridge-on traffic at AUC 0.466 — statistically distinguishable from
+chance but <em>below</em> it, which the pre-registered gate correctly refuses to call a leak. We do not
+have a substantiated mechanism for the slight below-chance offset; it is a small artifact of the
+pooled correlator on this as-instrumented traffic (and it is <em>not</em> a padding effect — this is the
+no-pad arm, which carries no cover stream). Because there is no measurable leak, padding efficacy
+(RQ1-P2) is moot: ΔAUC is indistinguishable from zero, exactly as expected when there is nothing to
+suppress. The honest reading is that <strong>at this lab scale and topology, the shared bridge is not a
+measurable flow-linkability hazard for our frozen correlator</strong> — a scoped negative, not a claim
+that shared bridges are safe against a state-of-the-art adversary (§7).</p>
+<p><strong>RQ2 — federation shrinks the anonymity set.</strong> The evidentiary core is the Holm-significant
+ΔH = −0.96 bits: under the ratified adversary posterior, federating across houses <em>reduces</em> the
+effective candidate-sender set relative to a matched-N single house. This is the <strong>funnelling</strong>
+outcome anticipated as a live possibility in the introduction — a consent gate carries traffic
+only over <em>willing</em> relays, and when willingness concentrates, circuits funnel and anonymity
+contracts. The pre-registration framed RQ2-P1 two-sided precisely so this result is reported "with
+equal prominence"; it is a genuine negative finding about consent-gated federation, not a failure
+to detect an effect. We deliberately do <strong>not</strong> re-slice cells or hunt subgroups to recover a
+"federation helps" story.</p>
+<p><strong>Why the funnelling mechanism test is inconclusive.</strong> RQ2-P3 would have connected the ΔH
+shrinkage to bridge concentration directly, but the instrument as built assigns a fresh willing
+bridge per circuit seed, so the top-3 concentration covariate has no variance and Spearman is
+undefined. The mechanism is therefore <strong>not testable on this instrument</strong> — an honest limitation
+carried into §7, not evidence against funnelling. The exploratory bridge-federated-only
+ΔH = −3.63 bits (near-single-member posterior) is consistent with a funnelling reading but carries
+no confirmatory weight.</p>
+<p><strong>Takeaway.</strong> For this specific consent-gated, federated, nested-SSH instrument at lab scale, the
+consent gate's measured privacy consequences are (i) no bridge linkability leak and (ii) a
+<em>reduction</em> in the federation anonymity set. Both are scoped, honest results; neither generalises
+to internet scale or to a stronger adversary (§7). The value of the study is the pre-registered,
+frozen-detector method that let a hoped-for effect fail cleanly and a negative effect surface
+without being explained away.</p>
+<hr />
+<h2 id="7-limitations-threats-to-validity">7. Limitations &amp; threats to validity</h2>
+<ul>
+<li><strong>Scale / adversary model (External).</strong> The grid is a single laptop (isolated-docker) with two non-forwarding phones pinned, and few houses; this
+  is <strong>not</strong> internet-scale and <strong>not</strong> a global passive adversary. Claims are scoped to the
+  tested topology/scale; entropy CIs are wide at small node counts (accepted, node counts
+  reported).</li>
+<li><strong>Node distribution (External, disclosed).</strong> All relay hops executed as <strong>isolated Docker
+  containers on a single engine host</strong> (the laptop; <code>isolated_engine_host_count = 1</code>, recorded in
+  <code>grid/device-map.json</code>). The two phones were <strong>pinned consenting-node labels, not forwarders</strong> — they
+  cannot host an isolated engine, were verified reachable only by a single grid-pin probe, and carried
+  no measured traffic. Node <em>distinctness</em> for RQ1/RQ2 is therefore container-level
+  (≥ 3 distinct containers per circuit), not physical-machine-level; matched-N is pinned from the
+  containerised node count per manifest. This satisfies the containment law (every forwarder runs
+  in an isolated engine, <code>engine ≠ local</code>) but means cross-machine timing effects are <strong>out of
+  scope</strong>; physical multi-host distribution is named future work.</li>
+<li><strong>Construct.</strong> Self-generated fixture traffic is not real user traffic (inherent to lab
+  measurement; fixtures versioned/checksummed). A single correlator's AUC stands in for
+  "linkability" and plug-in H for "anonymity" — mitigated by fixture calibration (§4.4) and by
+  reporting S = 2^H and normalized d; a second entropy estimator (NSB) is reported EXPLORATORY as
+  a sensitivity check.</li>
+<li><strong>Internal.</strong> Thermal/background load and device heterogeneity are mitigated by randomised
+  order, interleaved controls, per-session idle baselines, and a pinned node-role→device mapping.
+  Detector-tuning contamination is <strong>eliminated</strong> by pre-battery freezing on fixtures.</li>
+<li><strong>RQ2 construction dependency.</strong> The RQ2 result depends on the ratified posterior construction
+  (§4.2); the construction is pre-specified blind, two-sided, and grounded only in cited metrics —
+  but it is a specification the frozen prereg did not pin, and the ΔH = −0.96 bits finding should
+  be read as conditional on it.</li>
+<li><strong>Funnelling mechanism not testable as-instrumented (RQ2-P3).</strong> The bridge-federated topology
+  assigns a fresh willing bridge per circuit seed, so the top-3 concentration covariate has zero
+  variance and the Spearman mechanism test is degenerate (ρ = 0, inconclusive). This was flagged
+  in advance; it means the <em>mechanism</em> behind the RQ2-P1 shrinkage is not empirically resolved on
+  this instrument, only its magnitude. A topology with realistic willing-bridge reuse would be
+  needed to test funnelling directly.</li>
+<li><strong>Dual-use (ethics).</strong> An onion-routing data plane is dual-use; the <strong>defensive-measurement</strong>
+  framing and containment envelope are load-bearing and binding, and the framing is red-teamed at
+  stage 08.</li>
+</ul>
+<hr />
+<h2 id="8-deviations-from-pre-registration">8. Deviations from pre-registration</h2>
+<p>Tracked only in stage-05 <code>sor-consent-deviations.md</code> (none edit the frozen prereg). Three
+clarifications recorded: the Holm family-size restatement
+(<code>docs/stage-05-holm-clarification.md</code>, <strong>ratified</strong>), the RQ2 posterior construction
+(<code>docs/stage-05-rq2-posterior-clarification.md</code>, <strong>ratified</strong>), and the RQ1-P2 run-index pairing
+(<code>docs/stage-05-rq1p2-pairing-clarification.md</code>, <strong>freeze-derived / ratified</strong>). One
+implementation note carried in §4.5: the RQ1 CIs use a performance-faithful bootstrap proven
+<strong>bit-for-bit</strong> equal to the frozen <code>stats.bootstrap_ci</code> (committed <code>--verify</code>), so no point
+estimate, CI gate, or decision is substituted. The frozen prereg SHA is unchanged
+(<code>f22331a72e…</code>).</p>
+<hr />
+<h2 id="references">References</h2>
+<ul>
+<li><strong>[Chaum1981]</strong> Chaum, D. L. (1981). Untraceable Electronic Mail, Return Addresses, and Digital
+  Pseudonyms. <em>CACM</em> 24(2), 84–90. https://doi.org/10.1145/358549.358563</li>
+<li><strong>[Reed1997]</strong> Reed, M. G., Syverson, P. F., &amp; Goldschlag, D. M. (1997). Anonymous Connections
+  and Onion Routing. <em>IEEE S&amp;P 1997</em>, 44–54. https://doi.org/10.1109/secpri.1997.601314</li>
+<li><strong>[Dingledine2004]</strong> Dingledine, R., Mathewson, N., &amp; Syverson, P. (2004). Tor: The
+  Second-Generation Onion Router. <em>USENIX Security 2004</em>.</li>
+<li><strong>[Egners2012]</strong> Egners, A., Gatzen, D., Panchenko, A., &amp; Meyer, U. (2012). Introducing SOR:
+  SSH-based Onion Routing. <em>IEEE WAINA 2012</em>, 280–286. https://doi.org/10.1109/WAINA.2012.89</li>
+<li><strong>[Honda2005]</strong> Honda, O., et al. (2005). Understanding TCP over TCP. <em>SPIE 6011</em>.
+  https://doi.org/10.1117/12.630496</li>
+<li><strong>[Michel2023]</strong> Michel, F., &amp; Bonaventure, O. (2023). Towards SSH3. arXiv:2312.08396.</li>
+<li><strong>[AlAzad2023]</strong> Al Azad, M. W., et al. (2023). DarkHorse. <em>IEEE LCN 2023</em>. arXiv:2307.02429.</li>
+<li><strong>[MurdochD05]</strong> Murdoch, S. J., &amp; Danezis, G. (2005). Low-Cost Traffic Analysis of Tor.
+  <em>IEEE S&amp;P 2005</em>, 183–195. https://doi.org/10.1109/SP.2005.12</li>
+<li><strong>[JohnsonWJSS13]</strong> Johnson, A., et al. (2013). Users Get Routed. <em>ACM CCS 2013</em>, 337–348.
+  https://doi.org/10.1145/2508859.2516651</li>
+<li><strong>[NasrBH18]</strong> Nasr, M., Bahramali, A., &amp; Houmansadr, A. (2018). DeepCorr. <em>ACM CCS 2018</em>,
+  1962–1976. https://doi.org/10.1145/3243734.3243824</li>
+<li><strong>[OhYMH22]</strong> Oh, S. E., et al. (2022). DeepCoFFEA. <em>IEEE S&amp;P 2022</em>, 1915–1932.
+  https://doi.org/10.1109/SP46214.2022.9833801</li>
+<li><strong>[RahmanSMGW20]</strong> Rahman, M. S., et al. (2020). Tik-Tok. <em>PoPETs</em> 2020(3).
+  https://doi.org/10.2478/popets-2020-0043</li>
+<li><strong>[SirinamIJW18]</strong> Sirinam, P., et al. (2018). Deep Fingerprinting. <em>ACM CCS 2018</em>, 1928–1943.
+  https://doi.org/10.1145/3243734.3243768</li>
+<li><strong>[Serjantov2002]</strong> Serjantov, A., &amp; Danezis, G. (2002). Towards an Information Theoretic Metric
+  for Anonymity. <em>PET 2002</em>, LNCS 2482, 41–53. https://doi.org/10.1007/3-540-36467-6_4</li>
+<li><strong>[Diaz2002]</strong> Díaz, C., et al. (2002). Towards Measuring Anonymity. <em>PET 2002</em>, LNCS 2482,
+  54–68. https://doi.org/10.1007/3-540-36467-6_5</li>
+<li><strong>[Douceur2002]</strong> Douceur, J. R. (2002). The Sybil Attack. <em>IPTPS 2002</em>, LNCS 2429, 251–260.
+  https://doi.org/10.1007/3-540-45748-8_24</li>
+<li><strong>[Danezis2003]</strong> Danezis, G. (2003). Statistical Disclosure Attacks. <em>IFIP SEC 2003</em>.</li>
+<li><strong>[Winter2016]</strong> Winter, P., et al. (2016). Identifying and Characterizing Sybils in the Tor
+  Network. <em>USENIX Security 2016</em>, 1169–1185.</li>
+<li><strong>[Clarke2000]</strong> Clarke, I., et al. (2000/2001). Freenet. <em>Designing PETs</em>, LNCS 2009.
+  https://doi.org/10.1007/3-540-44702-4_4</li>
+<li><strong>[Vasserman2009]</strong> Vasserman, E. Y., et al. (2009). Membership-Concealing Overlay Networks.
+  <em>ACM CCS 2009</em>, 390–399. https://doi.org/10.1145/1653662.1653709</li>
+<li><strong>[Danezis2010]</strong> Danezis, G., et al. (2010). Drac. <em>PETS 2010</em>, LNCS 6205, 202–219.
+  https://doi.org/10.1007/978-3-642-14527-8_12</li>
+<li><strong>[Mittal2012]</strong> Mittal, P., Wright, M., &amp; Borisov, N. (2012). Pisces. <em>NDSS 2013</em>.
+  arXiv:1208.6326.</li>
+<li><strong>[Mittal2012b]</strong> Mittal, P., Caesar, M., &amp; Borisov, N. (2012). X-Vine. <em>NDSS 2012</em>.
+  arXiv:1109.0971.</li>
+<li><strong>[Zhou2011]</strong> Zhou, P., et al. (2011/2013). STor. arXiv:1110.5794.</li>
+</ul>
+<p><em>(Full bibliography: <code>~/coding/sci-method/stages/01-literature/output/sor-consent-bibliography.md</code>.
+Integrity flags carried forward: [Stutzbach2006] secondary-sourced; [Constantinides2026] recent
+preprint — neither is load-bearing in this lead paper.)</em></p></article>
+  </details>
+</section>
+
+<!-- ================= COMPANION PAPER ================= -->
+<section id="companion-paper">
+  <h2 class="sh">Companion paper &mdash; full text</h2>
+  <details class="paperwrap" open>
+    <summary>The Unique-Bridge / Mix Mechanism (RQ2-P3) and Churn-Resilient Agent Selection (RQ3) <span class="hint">click to collapse</span></summary>
+    <article class="paper"><h1 id="companion-methods-blind-scaffold-the-unique-bridge-mix-mechanism-rq2-p3-and-churn-resilient-agent-selection-rq3">Companion Methods (BLIND scaffold): The Unique-Bridge / Mix Mechanism (RQ2-P3) and Churn-Resilient Agent Selection (RQ3)</h1>
+<p><strong>Draft — companion methods. Both tracks have cleared their human gates (RQ2-P3 freeze; RQ3 operator-GO); Results/Discussion are UN-BLINDED and filled from the sealed records only.</strong></p>
+<blockquote>
+<p><strong>Paper-structure note (deliberately left OPEN).</strong> Whether this material ships as a second
+standalone paper, as extension sections folded into the lead paper
+(<code>docs/stage-07-paper-draft.md</code>), or as a short mechanism note is an <strong>operator editorial
+decision</strong> and is <strong>not</strong> pre-committed here. The two methods tracks below are therefore
+written as <strong>self-contained sections</strong> that can be lifted into either structure.</p>
+<p><strong>Blinding &amp; gating status (binding).</strong>
+- <strong>RQ2-P3 mechanism study — FROZEN + SEALED; its Results/Discussion are now UN-BLINDED below.</strong>
+  The prereg (<code>docs/rq2p3-mechanism-prereg.md</code>, own slug <code>sor-consent-rq2p3</code>) was <strong>frozen
+  2026-07-21</strong> (§10 signed; full-file SHA-256 <code>8db4e8a7ac60f8b2861f2387249db68a3fd44822f6b3d9c7c6990ff65f261a3b</code>
+  in the sidecar <code>docs/rq2p3-mechanism-prereg.sha256</code>). The confirmatory battery then ran
+  <strong>offline + deterministic</strong> and its record is <strong>sealed</strong> (<code>output/sor-rq2p3-confirmatory/…</code>,
+  results SHA-256 <code>5fdcb379d8a2…</code>). §5/§6 for RQ2-P3 are filled <strong>from that sealed record only</strong>,
+  the same post-seal discipline the lead paper used.
+- <strong>RQ3 companion — RUN + UN-BLINDED.</strong> Hypotheses, gates, and analysis are <strong>frozen</strong> in the lead
+  prereg (<code>sor-consent-prereg.md</code>, SHA-256
+  <code>f22331a72e0d0ccf38b787e63acabbe9d666456ec76076787a6d545c3193425b</code>, §3/§4/§6); the two open
+  <code>[APPROVAL]</code> execution params were pinned blind in <code>docs/rq3-companion-run-brief.md</code>. The
+  confirmatory battery ran <strong>operator-GO'd on the live isolated docker grid</strong> (3 arms × R=30 ×
+  C=50 = 4,500 real circuits, <code>live-docker-e2e</code>) and its record is <strong>sealed</strong>
+  (<code>output/sor-rq3-confirmatory/…</code>, battery SHA-256 <code>5b61e461…</code>, analysis SHA-256 <code>e09c66ef…</code>).
+  §5/§6 for RQ3 are filled <strong>from that sealed record only</strong>.
+- <strong>All Results / Discussion below are now UN-BLINDED, filled from the sealed records only.</strong> Both
+  tracks have cleared their human gates (RQ2-P3 freeze; RQ3 operator-GO); the <strong>authoritative
+  Holm-7</strong> over the frozen size-7 family is computed. The frozen lead prereg is authoritative and
+  <strong>unedited</strong>; the lead RQ1/RQ2-P1 findings are not re-litigated.</p>
+</blockquote>
+<hr />
+<h2 id="abstract-both-tracks-un-blinded-confirmatory-findings-folded-in-from-the-sealed-records">Abstract <em>(both tracks UN-BLINDED — confirmatory findings folded in from the sealed records)</em></h2>
+<p>The lead study measured a consent-gated, federated, nested-SSH relay instrument and reported two
+honest non-confirmations: no measurable entry↔exit linkability leak (RQ1) and a Holm-significant
+<strong>shrink</strong> of the per-circuit anonymity set under federation (RQ2-P1). This companion pursues the
+two questions the lead paper could not close. <strong>First (RQ2-P3′, a mechanism study):</strong> the lead
+"shrink" may be an <strong>instrument artifact</strong> — the bridge-federated topology assigns a <em>fresh</em>
+willing bridge per circuit seed, so every adversary-observable exit signature is unique, every
+anonymity set collapses to size 1, and entropy is driven to ≈0 by construction rather than by
+funnelling. We re-instrument the willing-bridge layer as a <strong>finite shared pool</strong> with skewed
+willingness and treat bridge <strong>concentration as a manipulated independent variable</strong> (a 3×3
+dose-response over pool size and skew), asking <strong>two-sided</strong> whether concentration <em>reduces</em>
+(funnel) or <em>raises</em> (mix) the anonymity set. <strong>Second (RQ3, churn resilience):</strong> we measure
+whether a <strong>local open-weight agent</strong> path-selector (<code>qwen2.5:3b</code>) retains throughput and adds
+tolerable latency under a pinned churn schedule, without leaving a classifiable <strong>rebuild
+fingerprint</strong>. Both tracks are pre-registered, detector-frozen, and calibration-gated before any
+confirmatory cell. <em>(Confirmatory findings, now un-blinded: </em><em>RQ2-P3 resolves MIX</em><em> —
+shared-pool concentration raises the anonymity set, correcting the lead "shrink" as a
+unique-bridge artifact; </em><em>RQ3 is a null on both counts</em><em> — on this grid every selector
+heals ~all churn (no +10 pp agent margin) and the rebuild-timing fingerprint cannot be
+excluded at n=30. The authoritative Holm-7 leaves RQ1-P1, RQ2-P1, and RQ2-P3 surviving.)</em></p>
+<hr />
+<h2 id="1-introduction-deltas-beyond-the-lead-paper">1. Introduction (deltas beyond the lead paper)</h2>
+<p>The lead paper (G4 + RQ1 + RQ2) established the consent-gate instrument and reported its
+linkability and anonymity-set readings. Two threads there were <em>raised but not resolved</em>, and this
+companion is scoped to exactly those.</p>
+<p><strong>(a) The unique-bridge / mix mechanism.</strong> The lead RQ2-P1 result — federation <strong>shrinks</strong> the
+anonymity set (ΔH &lt; 0) — was reported honestly, but the lead paper also flagged its RQ2-P3
+mechanism test as <strong>degenerate as-instrumented</strong>: the bridge-federated arm assigns a fresh bridge
+per circuit seed, so top-3 bridge concentration is a constant <code>c_i = 1/C</code> with <strong>zero variance</strong>
+and Spearman ρ is undefined. The mechanistic reading (developed in
+<code>docs/note-unique-bridge-artifact.md</code>) is that the adversary's observable is an
+<code>exit_signature = (exit_house, bridge_label)</code>; a unique bridge per circuit makes every signature
+unique, so the observation-consistent anonymity set is size 1 and H≈0 <strong>by injective construction,
+not by funnelling</strong>. If that is right, a <em>finite shared</em> bridge pool should make circuits share
+signatures, enlarge the anonymity set, and act as a <strong>mix</strong> (concentration <em>raises</em> H) — the
+<strong>opposite</strong> of the naive funnel intuition. This makes RQ2-P3′ a test of whether the lead
+"shrink" headline is a unique-bridge artifact that a mechanism study can qualify or correct. This
+mix reading connects the consent-gate bridge to the classical mix [Chaum1981] and to
+information-theoretic set metrics [Serjantov2002; Diaz2002] the lead paper already adopts.</p>
+<p><strong>(b) Churn-resilient agent selection.</strong> The lead paper held the selector at <code>static</code>; RQ3 asks
+whether an <strong>adaptive</strong> selector improves resilience when the relay pool churns. Two costs bound
+any such gain and are the confirmatory tension: (i) rebuilding a circuit after a dropped hop adds
+latency and can erode throughput, and (ii) the <em>timing pattern</em> of rebuilds is itself a
+side-channel — a rebuild-event classifier could fingerprint the selector, echoing website- and
+flow-fingerprinting results on onion transports [SirinamIJW18; RahmanSMGW20] and the
+rebuild/timing-classifier spirit of CLASI [Barton2025], and compounding statistical-disclosure
+exposure over repeated circuits [Danezis2003]. RQ3 therefore pairs a <strong>performance</strong> gate with an
+<strong>anonymity</strong> (non-fingerprint) gate: an agent selector only "helps" if it retains throughput at
+tolerable added latency <strong>and</strong> its rebuild pattern is not classifiable.</p>
+<h2 id="2-related-work-deltas">2. Related work (deltas)</h2>
+<p>The lead paper's Related Work (onion routing / SOR [Egners2012], flow correlation
+[NasrBH18; OhYMH22], anonymity metrics [Serjantov2002; Diaz2002], social-trust G4 neighbours) is
+inherited unchanged. The companion adds two narrow deltas, citing <strong>only</strong> already-grounded
+references:</p>
+<ul>
+<li><strong>Bridge-as-mix vs. bridge-as-funnel.</strong> Concentrating flows through few willing bridges can be
+  read either as a funnel (fewer distinct observation classes → smaller sets) or as a mix
+  [Chaum1981] (shared observation class → larger sets). The set-size effect is quantified with the
+  same entropy metrics the lead paper uses [Serjantov2002; Diaz2002]; the companion's contribution
+  is a <strong>manipulated-concentration dose-response</strong> that adjudicates the sign, not a new estimator.</li>
+<li><strong>Rebuild-timing as a fingerprint.</strong> Churn-driven circuit rebuilds create a timing series an
+  adversary may classify; this is the fingerprinting/timing lineage [SirinamIJW18; RahmanSMGW20;
+  Barton2025] applied to <em>selector-induced</em> rebuild events rather than page loads. The companion
+  adopts a <strong>frozen, fixture-calibrated</strong> rebuild classifier and reads its AUC as an instrument
+  reading, mirroring the lead paper's frozen-correlator discipline (no correlator/classifier
+  state-of-the-art is claimed).</li>
+</ul>
+<hr />
+<h2 id="3-methods-a-rq2-p3-funnelling-mechanism-study-frozen-2026-07-21-prereg-10-signed">3. Methods A — RQ2-P3′ funnelling-mechanism study <strong>[FROZEN 2026-07-21 — prereg §10 signed]</strong></h2>
+<blockquote>
+<p><strong>This section describes a study whose prereg (<code>docs/rq2p3-mechanism-prereg.md</code>) is FROZEN.</strong>
+Design and parameters were operator-approved and locked; the <strong>human freeze checkpoint</strong> (§10
+signed 2026-07-21, full-file SHA-256 <code>8db4e8a7ac60f8b2861f2387249db68a3fd44822f6b3d9c7c6990ff65f261a3b</code>
+in the sidecar <code>docs/rq2p3-mechanism-prereg.sha256</code>) is complete. The confirmatory battery then
+ran <strong>offline + deterministic</strong> and its record is <strong>sealed</strong> (results SHA-256 <code>5fdcb379d8a2…</code>).
+Everything below is the pre-registered <em>plan</em> exactly as frozen; the §5/§6 numbers are read
+<strong>from that sealed record only</strong>.</p>
+</blockquote>
+<p><strong>Design (manipulated-IV dose-response).</strong> A new assembler topology, <code>bridge-federated-pool</code>,
+replaces the fresh-per-seed bridge with a <strong>finite willing-bridge pool</strong> of size <code>B</code> under a fixed
+Zipf willingness skew <code>alpha</code>: <code>weights = zipf_weights(B, alpha)</code> derived from the <strong>cell</strong> seed
+(so the willingness profile is fixed within a run), and each circuit draws
+<code>idx = weighted_draw(sha256("sor-bridge-pool|{circuit_seed}"), weights)</code> → <code>bridge#{idx:02d}</code>,
+a label <strong>reused</strong> across circuits so concentration genuinely varies. Everything downstream (hop
+structure, houses, exit-signature grouping, Miller–Madow entropy, BCa bootstrap) is <strong>identical</strong>
+to the frozen lead pipeline; the lead <code>bridge-federated</code> branch is <strong>untouched and bit-reproducible</strong>.
+The manipulation grid is <strong>B ∈ {2, 4, 8} × alpha ∈ {0 (uniform), 1.0, 2.0}</strong> = 9 concentration
+cells; run order randomized within cell from an ordering seed distinct from the data seeds.</p>
+<p><strong>Hypotheses (two-sided; direction not presumed).</strong>
+- <strong>H1 (within-cell association).</strong> Spearman ρ between per-circuit top-3 willing-bridge
+  concentration <code>c_i</code> and per-circuit entropy <code>H_i</code>. <strong>Funnel</strong> iff BCa 95% CI &lt; 0; <strong>mix</strong> iff CI</p>
+<blockquote>
+<p>0; <strong>inconclusive</strong> iff CI spans 0.
+- <strong>H2 (dose-response).</strong> OLS slope β of per-run mean-H on per-run mean top-3 concentration over
+  9 cells × 30 runs = 270 clustered points; cell-level BCa CI; funnel iff slope CI &lt; 0, mix iff CI &gt; 0.
+- <strong>H3 (joint, direction-agnostic).</strong> Mechanism <strong>RESOLVED</strong> iff H1 and H2 agree in sign and both
+  exclude 0 — the <em>sign</em> (funnel vs mix) is the finding; <strong>unresolved</strong> if either spans 0.</p>
+</blockquote>
+<p><strong>Dependent variables.</strong> Per-circuit <code>H_i</code> (Miller–Madow entropy of the uniform posterior over the
+observation-consistent anonymity set, inherited verbatim) and per-circuit top-3 concentration <code>c_i</code>
+(<code>confirm_load_rq2.bridge_concentration</code>, unchanged).</p>
+<p><strong>Sampling.</strong> R = 30 seeded runs/cell, C = 50 circuits/run (matched to the lead study); base seed
+S0 = 20260719, per-cell seed <code>SHA256(S0 ‖ cell_id ‖ run_index)</code>; fixed stopping rule (all 9 cells ×
+R to completion; uninformative cell → inconclusive; no optional stopping).</p>
+<p><strong>Analysis.</strong> Effect size + BCa 95% CI (10,000 resamples, α = 0.05) for every test; <strong>run-level
+cluster bootstrap</strong> (resample whole runs, not circuits) because circuits sharing a bridge have
+identical <code>c_i</code> and correlated <code>H_i</code> — the same pseudo-replication defect the lead paper flagged
+for RQ1-P1. Holm–Bonferroni over <strong>this study's own family</strong> {H1-pooled, H2-slope}; the lead
+family-of-7 is closed and <strong>not</strong> reopened here. Any per-cell ρ contrast or ΔH replication is
+labelled <strong>EXPLORATORY</strong>, never a re-run of the frozen RQ2-P1.</p>
+<p><strong>Instrument-validation gate (§7, re-worded pre-freeze — cite
+<code>docs/stage-05-rq2p3-gate-clarification.md</code>).</strong> The §7 items were <strong>re-worded before freeze</strong>
+because the original items 1–2 encoded the naive-funnel prior and were mechanically wrong under the
+ratified posterior (transparent deviation logged; no hypothesis changed — H1/H2/H3 stay two-sided).
+The re-worded gate validates the <strong>instrument</strong>, not a sign:
+1. the <strong>frozen</strong> <code>bridge-federated</code> branch (not the pool) still shows the lead degeneracy — unique
+   signatures → <code>m_i = 1</code> → <code>H_i ≈ 0</code>, constant <code>c_i = 1/C</code> (a pool draws with replacement and
+   <em>cannot</em> reproduce the injective fresh-bridge degeneracy, so the regression teeth live on the
+   untouched branch);
+2. the <strong>B = 1 boundary</strong> yields <code>c = 1.0</code> (concentration tooth) <strong>and</strong>, under the ratified
+   posterior, <code>H</code> at the <strong>high</strong> end (maximal mix) — the naive "low H" gloss is refuted by
+   construction;
+3. realized mean top-3 concentration is <strong>monotone</strong> (decreasing in B, increasing in alpha);
+4. entropy calibration inherited (H = log₂N on equiprobable synthetic senders).
+A <strong>§7 scope note</strong> records that the gate <strong>must not</strong> pre-assert the H-vs-concentration sign —
+that sign <em>is</em> the two-sided confirmatory question; baking it in would be funnel-circular.</p>
+<p><strong>Pre-registered calibration finding (NOT a confirmatory result).</strong> The dry §7 pass — synthetic,
+offline, no confirmatory record read — already <strong>previews a mix</strong>: across the sweep Spearman ρ runs
+from ≈0 up to <strong>+0.838</strong> (all cells ρ ≥ 0), the B = 1 boundary sits at high entropy (≈2.54 bits vs
+the fresh-bridge reference ≈0.0), and monotonicity + entropy calibration pass. This is surfaced
+<strong>openly as a pre-registered calibration preview</strong>, per the §7 scope note; it does <strong>not</strong> relax the
+two-sided pre-commitment, and the confirmatory sign remains withheld until after freeze. Honest
+disclosure the eventual write-up must carry: because the dry pass already previews the mix
+direction, the confirmatory battery <strong>quantifies a dose-response already visible at calibration</strong>;
+the two-sided pre-commitment stands and the lead RQ2-P1 headline is not re-litigated.</p>
+<h2 id="4-methods-b-rq3-churn-resilient-agent-selector-frozen-prereg">4. Methods B — RQ3 churn-resilient agent selector (frozen prereg)</h2>
+<blockquote>
+<p>Hypotheses, gates, DVs, and analysis are <strong>frozen</strong> in <code>sor-consent-prereg.md</code> (§3/§4/§6) and are
+restated, not redefined. The two open <code>[APPROVAL]</code> execution params were pinned <strong>blind</strong> to RQ3
+outcomes (<code>docs/rq3-companion-run-brief.md</code> §2).</p>
+</blockquote>
+<p><strong>Design.</strong> Selector strategy {<code>static</code>, <code>random</code>, <code>agent</code>} at the RQ3 control cell
+(single-house / bridge-off) under a pinned churn schedule; <code>static</code> is the interleaved control, and
+control runs are bracketed before and after the {<code>random</code>, <code>agent</code>} treatments to catch grid drift.
+The cells are enumerated <strong>separately</strong> from the frozen 6-cell lead lattice so the lead battery
+stays bit-reproducible.</p>
+<p><strong>Pinned execution parameters (blind).</strong>
+- <strong>Agent = <code>qwen2.5:3b</code></strong> via local Ollama (<code>agent_selector.OllamaAgentPolicy</code>, temperature 0,
+  per-run seed, <code>(seed, state-hash)</code> decision cache, deterministic heuristic fallback on query
+  failure). Local / open-weight, <strong>$0</strong>; the Claude/frontier arm (<code>ClaudeExploratoryPolicy</code>) stays
+  <strong>inert / EXPLORATORY / budget-gated</strong> and is not wired.
+- <strong>Reproducibility caveat (accepted; must be stated in the paper).</strong> Ollama at temperature 0 is
+  <strong>not bit-identical across machines</strong> (quantization / GPU logit drift). The agent arm is
+  reproducible via the <strong>committed decision-log + <code>(seed, state-hash)</code> cache replay</strong>, <em>not</em> via
+  independent model re-execution on other hardware — the same honesty class as the RQ1 timing
+  caveat. The decision log + cache are committed as the reproducibility anchor.
+- <strong>Churn = <code>kill_prob_pct = 30</code>, <code>steps = 20</code></strong>, one deterministic schedule per run seeded from
+  the same <code>SHA256(S0 ‖ cell ‖ run)</code> family; low-churn calibration baseline <code>kill_prob_pct = 5</code>.</p>
+<p><strong>Dependent variables (frozen).</strong> Throughput retention (throughput under churn / no-churn
+baseline); added latency = median end-to-end latency(agent) − median latency(best baseline arm), in
+ms — a <strong>live</strong> measurement only; and rebuild-classifier AUC over the rebuild-event time series (the
+per-run mean inter-rebuild-gap signal), per the [Barton2025] CLASI spirit.</p>
+<p><strong>Confirmatory gates (frozen, family-of-7).</strong></p>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Frozen gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RQ3-P1-perf</td>
+<td>throughput-retention(agent) − max(static, random): 95% CI lower bound <strong>≥ 10 pp</strong></td>
+</tr>
+<tr>
+<td>RQ3-P1-latency</td>
+<td>added-latency(agent): 95% CI upper bound <strong>≤ 100 ms</strong></td>
+</tr>
+<tr>
+<td>RQ3-P2</td>
+<td>rebuild-classifier AUC: 95% CI upper bound <strong>≤ 0.60</strong></td>
+</tr>
+<tr>
+<td>RQ3-P3</td>
+<td>logical AND: <strong>CONFIRM</strong> iff P1 ∧ P2 (perf gain <em>without</em> a rebuild fingerprint); else H0</td>
+</tr>
+</tbody>
+</table>
+<p>R = 30 runs/cell, C = 50 circuits/run, fixed stopping rule (inherited unchanged).</p>
+<p><strong>Analysis + multiplicity (Holm-7 supersedes note).</strong> The three RQ3 tests were always in the
+frozen size-7 family {RQ1-P1, RQ1-P2, RQ2-P1, RQ2-P3, RQ3-P1-perf, RQ3-P1-latency, RQ3-P2}. Once
+all seven p-values exist, the companion computes the <strong>exact Holm-7</strong> step-down over the whole
+family; this is the <strong>authoritative</strong> final correction and <strong>supersedes</strong> the lead paper's
+deliberately conservative <em>partial</em> embedding (7/6/5/4 report-4) — both remain valid, the partial
+never under-corrects, and the lead paper's already-published RQ1-P1 / RQ2-P1 survive regardless
+(their reported raw p ≈ 0 — a lead-paper result, not a companion figure). Effect size + BCa 95% CI
+for every test; nulls reported honestly (a selector that does <strong>not</strong> beat baselines, or a rebuild
+pattern that <strong>is</strong> classifiable, is the finding). The QUIC / <code>ssh3</code> transport arm stays
+<strong>EXPLORATORY and deferred</strong> (design decision D3), never in the Holm family.</p>
+<p><strong>Calibration gates (already green; NOT confirmatory results).</strong> Two boolean gates block the RQ3
+confirmatory battery and have both passed on a <strong>dry, synthetic, offline</strong> pass:
+- <strong>Churn-bites</strong> — at the pinned <code>kp = 30 / steps = 20</code> the churn genuinely bites (non-zero
+  drops/rebuilds across every RQ3 cell), so the retention and classifier tests are not degenerate.
+- <strong>Rebuild-classifier calibration</strong> — churned (<code>kp = 30</code>) vs low-churn baseline (<code>kp = 5</code>) is
+  <strong>separable</strong> on the per-run mean inter-rebuild-gap signal (calibration AUC ≈ <strong>0.93</strong>), while
+  baseline-vs-baseline is <strong>not</strong> (null AUC ≈ <strong>0.52</strong>); plus an agent cache-replay reproducibility
+  check and the inherited entropy calibration. These are <strong>calibration</strong> readings on labelled
+  control signals, <strong>not fit to confirmatory cells</strong>; the frozen instrument
+  (<code>rebuild_interval_gaps</code>, <code>rebuild_classifier_auc</code>) is unchanged.</p>
+<hr />
+<h2 id="5-results-both-tracks-un-blinded-filled-from-the-sealed-records-only">5. Results <em>(both tracks UN-BLINDED — filled from the sealed records only)</em></h2>
+<ul>
+<li><strong>RQ2-P3′ (H1 / H2 / H3) — RESOLVED: MIX.</strong> From the sealed confirmatory record (9 cells × R=30 ×
+  C=50, offline + deterministic, S0 = 20260719):</li>
+<li><strong>H1 (within-cell association).</strong> Pooled Spearman <strong>ρ = +0.6244</strong>, BCa 95% CI <strong>[+0.5941, +0.6545]</strong>
+    (run-level cluster bootstrap, 10,000 resamples). CI excludes 0 on the <strong>positive</strong> side → <strong>mix</strong>.</li>
+<li><strong>H2 (dose-response).</strong> OLS slope of per-run mean-H on per-run mean concentration
+    <strong>β = +0.7052</strong>, BCa 95% CI <strong>[+0.6195, +0.7903]</strong> over n = 270 run-level points. CI positive →
+    <strong>mix</strong>.</li>
+<li><strong>H3 (joint).</strong> H1 and H2 <strong>agree in sign (both +)</strong> and <strong>both exclude 0</strong> → mechanism
+    <strong>RESOLVED = MIX</strong>.</li>
+<li><strong>Holm (own family {H1-pooled, H2-slope}, size 2).</strong> Both tests <strong>reject</strong> at α = 0.05 after
+    Holm correction. <em>(p carried only for Holm ordering; the effect + CI above are the reported
+    quantities — never a bare p.)</em></li>
+<li>Across the sweep, as pool size B rises concentration falls <strong>and</strong> entropy H falls together
+    (e.g. B=2/α=0: conc ≈ 1.00, H ≈ 2.54; B=8/α=0: conc ≈ 0.51, H ≈ 2.19) — concentration and H move
+    <strong>together, positively</strong>: higher concentration ⇒ higher anonymity (mix), not lower (funnel).</li>
+<li><strong>RQ3-P1-perf / RQ3-P1-latency / RQ3-P2 / RQ3-P3 — H0 (honest null).</strong> From the sealed live
+  battery (3 selector arms × R=30 × C=50 = 4,500 real isolated-docker circuits, <code>measured_from =
+  live-docker-e2e</code>; agent = <code>qwen2.5:3b</code> local Ollama; run-level multi-arm bootstrap, 10,000 BCa
+  resamples, α = 0.05; results SHA-256 <code>e09c66ef…</code>):</li>
+<li><strong>RQ3-P1-perf — FAILS the +10 pp gate.</strong> Throughput-retention margin = retention(agent) −
+    max(static, random) = <strong>−0.6 pp</strong>, BCa 95% CI <strong>[−1.58 pp, +0.39 pp]</strong>. Every selector heals
+    ~all churn drops (mean retention ≈ 0.99 across arms), so the agent shows <strong>no</strong> ≥ +10 pp gain.</li>
+<li><strong>RQ3-P1-latency — WITHIN the ≤ 100 ms budget.</strong> Added-latency(agent) = median e2e
+    latency(agent) − median latency(min-latency baseline = random) = <strong>−13.5 ms</strong>, BCa 95% CI
+    <strong>[−52.1, +34.9] ms</strong>; CI upper 34.9 ms ≤ 100 ms — the agent is <strong>not</strong> slower than the best
+    baseline (the perf gate, not latency, is what fails P1).</li>
+<li><strong>RQ3-P2 — FAILS the ≤ 0.60 ceiling (fingerprint not excluded).</strong> Rebuild-classifier AUC (agent
+    per-run mean inter-rebuild-gap vs. the pooled baseline selectors) = <strong>0.587</strong>, BCa 95% CI
+    <strong>[0.458, 0.703]</strong>; CI upper 0.703 <strong>&gt; 0.60</strong>, so a rebuild-timing fingerprint of the agent
+    <strong>cannot be ruled out</strong> at the pre-registered bar (the test is underpowered at n = 30 runs/arm).
+    <em>(Disclosure: the green §3-4 </em><em>calibration</em><em> gate reported AUC ≈ 0.93 — but that was
+    </em><em>churned-vs-low-churn regime</em><em> discrimination on labelled control signals, a </em><em>different</em><em>
+    comparison from this confirmatory </em><em>agent-vs-baseline-selector</em><em> AUC of 0.587; the calibration
+    validated the instrument and does </em><em>not</em><em> preview the confirmatory selector value.)</em></li>
+<li><strong>RQ3-P3 (joint) — H0.</strong> P1 fails (perf) <strong>and</strong> P2 fails → the agent selector is <strong>not</strong>
+    confirmed to help without a fingerprint. Reported as the finding, not spun.</li>
+<li><strong>Holm-7 (companion, authoritative).</strong> Over the frozen size-7 family {RQ1-P1, RQ1-P2, RQ2-P1,
+  RQ2-P3, RQ3-P1-perf, RQ3-P1-latency, RQ3-P2}, exact Holm step-down (the RQ2-P3 slot carries the
+  <strong>mechanism-corrected</strong> primary H1-pooled Spearman p, superseding the lead's degenerate
+  as-instrumented RQ2-P3): <strong>survivors = RQ1-P1 (rank 1 ×7), RQ2-P1 shrink (rank 2 ×6), RQ2-P3 mix
+  (rank 3 ×5)</strong> — all adjusted p = 0. <strong>Do not survive:</strong> RQ1-P2 (rank 4 ×4, adj p = 0.365), RQ3-P2
+  (rank 5 ×3, 0.511), RQ3-P1-perf (rank 6 ×2, 0.511), RQ3-P1-latency (rank 7 ×1, 0.511). <em>(Holm
+  adjusted p-values are step-down </em><em>monotone-enforced</em><em> — a later rank never reports a smaller
+  adjusted p than an earlier one — so ranks 6–7 inherit the rank-5 value rather than their smaller
+  bare rank-products; this is standard Holm, not an arithmetic slip.)</em> This is the
+  <strong>authoritative</strong> final correction and <strong>supersedes</strong> the lead paper's conservative <em>partial</em>
+  embedding (report-4); both remain valid, the partial never under-corrects, and lead RQ1-P1 /
+  RQ2-P1 survive regardless.</li>
+</ul>
+<h2 id="6-discussion-both-tracks-un-blinded">6. Discussion <em>(both tracks UN-BLINDED)</em></h2>
+<ul>
+<li><strong>Does a shared bridge funnel or mix? — It mixes.</strong> Both pre-registered two-sided tests resolve
+  <strong>positive</strong> (H1 ρ = +0.6244 CI [+0.5941, +0.6545]; H2 β = +0.7052 CI [+0.6195, +0.7903]; H3
+  RESOLVED = mix; Holm both reject). Plainly: <strong>concentrating circuits through a finite shared
+  willing-bridge pool RAISES the per-circuit anonymity set</strong> — circuits that share a bridge share an
+  exit signature, so the observation-consistent set grows and entropy rises. This <strong>refutes the naive
+  funnel intuition</strong> (that concentration would shrink the set) and, per the mechanism developed in
+  <code>docs/note-unique-bridge-artifact.md</code>, <strong>qualifies the lead RQ2-P1 "shrink" as a unique-bridge
+  (fresh-bridge-per-circuit) instrument artifact</strong>: the lead topology assigned a <em>fresh</em> bridge per
+  circuit seed, making every exit signature unique, every anonymity set size 1, and H≈0 by injective
+  construction rather than by funnelling. Under a finite shared pool the injectivity is removed and
+  the true sign of the concentration→anonymity relationship is revealed to be a <strong>mix</strong>. This is an
+  honest <strong>qualification/correction</strong> of the lead reading via the frozen mechanism prereg (SHA-256
+  <code>8db4e8a7ac60f8b2861f2387249db68a3fd44822f6b3d9c7c6990ff65f261a3b</code>), <strong>not</strong> an overwrite: the lead
+  RQ2-P1 result and its frozen prereg stand as published and are not re-litigated.</li>
+<li><strong>Mandatory disclosure (pre-registration honesty).</strong> The §7 calibration dry-pass — synthetic,
+    offline, no confirmatory record read — <strong>already previewed this direction</strong> (Spearman ρ running
+    0 → +0.838 across the sweep, B=1 boundary at high entropy). The confirmatory battery therefore
+    <strong>quantifies a dose-response that was already visible at calibration</strong>; the pre-committed
+    hypotheses were nonetheless <strong>two-sided</strong> and that pre-commitment is unchanged. We surface the
+    calibration preview openly so no reader mistakes the confirmatory sign for a post-hoc choice.</li>
+<li><strong>Does the agent selector help without leaking? — No (H0), on both counts.</strong> RQ3-P3 requires the
+  agent to clear the +10 pp retention / ≤ 100 ms latency bar <strong>and</strong> leave a non-classifiable
+  rebuild pattern (AUC CI upper ≤ 0.60); it does neither decisively. On <strong>performance</strong>, the honest
+  reason is that churn at kp = 30 / steps = 20 is <strong>fully healed by every arm</strong> — static, random,
+  and the agent all rebuild ~all dropped hops (retention ≈ 0.99), so there is simply <strong>no headroom</strong>
+  for an adaptive selector to win the +10 pp margin (margin −0.6 pp, CI [−1.58, +0.39] pp). The
+  agent is not <em>worse</em> — added-latency is within budget (−13.5 ms, CI upper 34.9 ms ≤ 100 ms) — it
+  is merely <strong>not better</strong>, because the baseline is already at the retention ceiling on this grid.
+  On <strong>anonymity</strong>, the rebuild-timing classifier reaches AUC 0.587 with CI upper 0.703 &gt; 0.60, so
+  the pre-registered bar to certify "no usable fingerprint" is <strong>not met</strong>: at n = 30 runs/arm the
+  test is <strong>underpowered</strong> to exclude a small rebuild-timing signal, and we report that limitation
+  rather than a false all-clear. The honest reading: <strong>on this lab grid the local open-weight agent
+  selector neither beats the baselines nor is demonstrably fingerprint-free</strong> — a null on both P1
+  and P2, exactly the outcome the design pre-committed to publish with equal prominence.</li>
+<li><strong>Authoritative multiplicity (Holm-7).</strong> With all seven pre-registered p-values now in hand, the
+  companion's exact Holm-7 supersedes the lead paper's conservative partial embedding (operator
+  decision D3). Three hypotheses survive: <strong>RQ1-P1</strong> (below-chance linkability AUC — no usable
+  entry↔exit leak), <strong>RQ2-P1</strong> (federation <em>shrinks</em> the anonymity set, the lead headline null),
+  and <strong>RQ2-P3</strong> (shared-pool concentration <em>mixes</em> — the mechanism correction). The four that do
+  not survive are RQ1-P2 (padding efficacy), and all three RQ3 tests — consistent with the RQ3 H0
+  above. Note the RQ2-P3 slot now carries the <strong>mechanism-corrected</strong> primary statistic (H1-pooled
+  Spearman, adj p = 0) rather than the lead's degenerate as-instrumented RQ2-P3 (adj p = 1): the
+  companion's frozen-detector method both <em>caught</em> the unique-bridge artifact and <em>promotes</em> the
+  corrected mechanism finding into the surviving family. Lead RQ1-P1 and RQ2-P1 survive regardless.</li>
+<li><strong>Scope &amp; limitations.</strong> Both findings are scoped to the lab grid (1-house / bridge-off control,
+  single-laptop isolated-docker, two non-forwarding phones, self-generated fixture traffic) and inherit the lead paper's external-validity
+  caveats. Specific to this companion: (i) the RQ2-P3 mix is an <strong>as-instrumented</strong> concentration
+  effect on the ratified exit-signature posterior, not an internet-scale claim; (ii) the RQ3 nulls
+  are <strong>grid-bound</strong> — the perf null follows from a baseline retention ceiling under the pinned
+  churn, and the P2 non-exclusion is an n = 30 <strong>power</strong> limitation, not a proof of a fingerprint;
+  (iii) the agent arm carries the accepted <strong>reproducibility caveat</strong> (Ollama temp-0 is reproducible
+  via the committed decision-log + (seed, state-hash) cache replay, <em>not</em> via cross-hardware model
+  re-execution), stated with equal prominence to the RQ1 timing caveat.</li>
+</ul>
+<hr />
+<h2 id="references">References</h2>
+<p>Inherit the lead paper's reference list (<code>docs/stage-07-paper-draft.md</code> §References) unchanged. The
+companion cites only references already grounded in the frozen sources: <strong>Chaum1981, Serjantov2002,
+Diaz2002, Egners2012, NasrBH18, OhYMH22, SirinamIJW18, RahmanSMGW20, Danezis2003</strong> are in the lead
+paper's list; <strong>Barton2025</strong> (CLASI rebuild/timing-classifier spirit) is grounded in the frozen
+lead prereg's RQ3 dependent-variable definition (<code>sor-consent-prereg.md</code> §3) and carries into the
+companion's assembled list. No reference is added that cannot be grounded from the frozen prereg or
+stage-01 literature.</p></article>
+  </details>
+</section>
+
+<!-- ================= PROVENANCE ================= -->
+<section id="provenance">
+  <h2 class="sh">Provenance &amp; integrity</h2>
+  <div class="prov">
+    <p><b>Pre-registrations (frozen, hashed):</b><br/>
+    lead <code>f22331a72e0d0ccf38b787e63acabbe9d666456ec76076787a6d545c3193425b</code><br/>
+    RQ2-P3 mechanism <code>8db4e8a7ac60f8b2861f2387249db68a3fd44822f6b3d9c7c6990ff65f261a3b</code></p>
+    <p><b>Sealed confirmatory records:</b> lead 180 cells / 9,000 circuits (<code>SHA256SUMS.txt</code>);
+    RQ2-P3 13,500 offline-deterministic bridged circuits (results <code>5fdcb379&hellip;</code>);
+    RQ3 4,500 live isolated-docker circuits (battery <code>5b61e461&hellip;</code>, analysis <code>e09c66ef&hellip;</code>).</p>
+    <p><b>Discipline:</b> detectors calibrated on fixtures and frozen before any confirmatory cell; effect size + BCa 95% CI for every test, p only orders the Holm step-down; Results filled once, post-seal; containment intact (isolated-engine only, self-generated fixtures, lab-only); worktree-only on <code>feat/sor-consent-relay</code>.</p>
+    <p style="margin-bottom:0"><b>Note:</b> this page is a presentation artifact generated from the committed paper drafts; the papers and sealed records are authoritative.</p>
+  </div>
+</section>
+
+</main>
+<footer>Generated offline from the committed paper drafts &middot; sor-consent study &middot; self-contained (no external assets)</footer>
+</body>
+</html>

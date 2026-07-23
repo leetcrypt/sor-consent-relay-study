@@ -1,0 +1,51 @@
+{
+  "assessment": "GO on isolated docker host",
+  "containment": {
+    "external_target": "none",
+    "hops_run_in": "isolated docker containers only (never a phone/host forwarder)",
+    "live_vm_churn_on_rq1_rq2": "none (RQ1/RQ2 use no churn; churn_schedule_id=none)",
+    "self_traffic_only": true
+  },
+  "degraded": false,
+  "devices": [
+    {
+      "arch": "x86_64",
+      "can_host_engine": true,
+      "engine_version": "27.5.1",
+      "house_role": "house-A docker host + hop pool",
+      "isolated_engine_available": true,
+      "kind": "laptop",
+      "name": "laptop",
+      "ssh_reachable": true
+    },
+    {
+      "arch": "aarch64",
+      "can_host_engine": false,
+      "engine_version": null,
+      "house_role": "house-B consenting node (phone)",
+      "isolated_engine_available": false,
+      "kind": "phone",
+      "name": "fp6",
+      "ssh_reachable": true
+    },
+    {
+      "arch": "aarch64",
+      "can_host_engine": false,
+      "engine_version": null,
+      "house_role": "house-C consenting node (Termux, no docker)",
+      "isolated_engine_available": false,
+      "kind": "phone",
+      "name": "tril",
+      "ssh_reachable": true
+    }
+  ],
+  "devices_down": [],
+  "generated_utc": "2026-07-20T06:01:52Z",
+  "isolated_engine_host_count": 1,
+  "local_docker_version": "27.5.1",
+  "matched_N_note": "RQ1/RQ2 isolated hops are containerised on the docker host (>=3 distinct containers = distinct nodes). Physical-phone distribution is optional; the confirmatory matched-N (single-house N = federated total consenting nodes) is pinned from the containerised node count at run time and recorded per manifest.",
+  "reachable_count": 3,
+  "schema": "sor-device-map/1",
+  "scope": "RQ1+RQ2 lead-paper grid pin (CLAUDE.md \u00a7Containment)",
+  "topology_matchedN_honourable": true
+}

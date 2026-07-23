@@ -1,0 +1,156 @@
+{
+  "authoritative_holm7": {
+    "family": [
+      "RQ1-P1",
+      "RQ1-P2",
+      "RQ2-P1",
+      "RQ2-P3",
+      "RQ3-P1-perf",
+      "RQ3-P1-latency",
+      "RQ3-P2"
+    ],
+    "family_size": 7,
+    "non_survivors": [
+      "RQ1-P2",
+      "RQ3-P2",
+      "RQ3-P1-perf",
+      "RQ3-P1-latency"
+    ],
+    "p_sources": {
+      "RQ1-P1": "sealed lead RQ1-P1",
+      "RQ1-P2": "sealed lead RQ1-P2",
+      "RQ2-P1": "sealed lead RQ2-P1 (shrink)",
+      "RQ2-P3": "sealed RQ2-P3\u2032 H1-pooled Spearman \u03c1 (mechanism-corrected, mix) \u2014 supersedes the lead's degenerate as-instrumented RQ2-P3"
+    },
+    "rows": [
+      {
+        "holm_p": 0.0,
+        "multiplier": 7,
+        "name": "RQ1-P1",
+        "rank": 1,
+        "raw_p": 0.0,
+        "reject": true
+      },
+      {
+        "holm_p": 0.0,
+        "multiplier": 6,
+        "name": "RQ2-P1",
+        "rank": 2,
+        "raw_p": 0.0,
+        "reject": true
+      },
+      {
+        "holm_p": 0.0,
+        "multiplier": 5,
+        "name": "RQ2-P3",
+        "rank": 3,
+        "raw_p": 0.0,
+        "reject": true
+      },
+      {
+        "holm_p": 0.3648,
+        "multiplier": 4,
+        "name": "RQ1-P2",
+        "rank": 4,
+        "raw_p": 0.0912,
+        "reject": false
+      },
+      {
+        "holm_p": 0.5112,
+        "multiplier": 3,
+        "name": "RQ3-P2",
+        "rank": 5,
+        "raw_p": 0.1704,
+        "reject": false
+      },
+      {
+        "holm_p": 0.5112,
+        "multiplier": 2,
+        "name": "RQ3-P1-perf",
+        "rank": 6,
+        "raw_p": 0.177,
+        "reject": false
+      },
+      {
+        "holm_p": 0.5112,
+        "multiplier": 1,
+        "name": "RQ3-P1-latency",
+        "rank": 7,
+        "raw_p": 0.497,
+        "reject": false
+      }
+    ],
+    "supersedes": "lead paper's conservative partial embedding (report-4 of family-of-7); both valid, partial never under-corrects; RQ1-P1 and RQ2-P1 survive regardless",
+    "survivors": [
+      "RQ1-P1",
+      "RQ2-P1",
+      "RQ2-P3"
+    ]
+  },
+  "battery_results_path": "output/sor-rq3-confirmatory/20260722T040640Z/confirmatory-data/rq3-battery-results.json",
+  "battery_results_sha256": "5b61e461004722985c1a7a9bc5fdfe855395df3180c71e6efdc3531b8ecf8039",
+  "frozen_lead_prereg_sha256": "f22331a72e0d0ccf38b787e63acabbe9d666456ec76076787a6d545c3193425b",
+  "honest_disclosure": "Every RQ3 test reports effect + BCa 95% CI; p is carried ONLY to order the Holm family (prereg \u00a76). Nulls are results: a selector that does not beat baselines, or a rebuild pattern that is not certifiably non-classifiable, is the finding \u2014 not spun. Reproducibility caveat (accepted, run-brief \u00a72A): the agent (qwen2.5:3b via local Ollama, temp 0) is reproducible via its committed decision-log + (seed, state-hash) cache replay, NOT via independent model re-execution on other hardware.",
+  "measured_from": "live-docker-e2e",
+  "n_runs_per_arm": {
+    "agent": 30,
+    "random": 30,
+    "static": 30
+  },
+  "results": {
+    "RQ3-P1-latency": {
+      "alpha": 0.05,
+      "ci_hi": 34.911185735836625,
+      "ci_lo": -52.14837333187461,
+      "decision": "within-latency-budget",
+      "effect": "added_latency_ms_agent_minus_min_baseline",
+      "gate": "CI upper \u2264 100.0 ms",
+      "holds": true,
+      "method": "bca",
+      "min_latency_baseline_arm": "random",
+      "n_resamples": 10000,
+      "p_for_holm": 0.497,
+      "point": -13.491572928614914,
+      "seed": 5867095940896968561
+    },
+    "RQ3-P1-perf": {
+      "alpha": 0.05,
+      "ci_hi": 0.003865947497819883,
+      "ci_lo": -0.015830325279388435,
+      "decision": "no-perf-gain",
+      "effect": "throughput_retention_margin_agent_minus_max_baseline",
+      "gate": "CI lower \u2265 +0.1",
+      "holds": false,
+      "method": "bca",
+      "n_resamples": 10000,
+      "p_for_holm": 0.177,
+      "point": -0.006312034914976117,
+      "seed": 16001687329924348899
+    },
+    "RQ3-P2": {
+      "alpha": 0.05,
+      "ci_hi": 0.7034362881655691,
+      "ci_lo": 0.45805555555555555,
+      "decision": "fingerprint-not-excluded",
+      "effect": "rebuild_classifier_auc_agent_vs_pooled_baseline",
+      "gate": "CI upper \u2264 0.6",
+      "grouping_unit": "per-run mean inter-rebuild gap",
+      "holds": false,
+      "method": "bca",
+      "n_agent_runs": 30,
+      "n_baseline_runs": 60,
+      "n_resamples": 10000,
+      "p_for_holm": 0.1704,
+      "point": 0.5869444444444445,
+      "seed": 9396385129919407505
+    },
+    "RQ3-P3-joint": {
+      "confirm": false,
+      "decision": "H0",
+      "p1_holds": false,
+      "p2_holds": false,
+      "rule": "CONFIRM iff (P1-perf \u2227 P1-latency) \u2227 P2"
+    }
+  },
+  "schema": "sor-rq3-confirmatory/1"
+}

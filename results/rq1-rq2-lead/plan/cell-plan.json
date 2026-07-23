@@ -1,0 +1,1363 @@
+{
+  "C_circuits_per_run": 50,
+  "R_runs_per_cell": 30,
+  "base_seed_S0": 20260719,
+  "cells": [
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "factors": {
+        "bridge": "off",
+        "selector": "static",
+        "topology": "1house"
+      },
+      "is_control": true,
+      "na": false,
+      "na_reason": "",
+      "rq": "RQ1"
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "factors": {
+        "bridge": "on",
+        "selector": "static",
+        "topology": "1house"
+      },
+      "is_control": false,
+      "na": false,
+      "na_reason": "",
+      "rq": "RQ1"
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "factors": {
+        "bridge": "on+padding",
+        "selector": "static",
+        "topology": "1house"
+      },
+      "is_control": false,
+      "na": false,
+      "na_reason": "",
+      "rq": "RQ1"
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "factors": {
+        "bridge": "off",
+        "selector": "static",
+        "topology": "1house-N"
+      },
+      "is_control": true,
+      "na": false,
+      "na_reason": "",
+      "rq": "RQ2"
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "factors": {
+        "bridge": "off",
+        "selector": "static",
+        "topology": "bridge-federated"
+      },
+      "is_control": false,
+      "na": false,
+      "na_reason": "",
+      "rq": "RQ2"
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "factors": {
+        "bridge": "off",
+        "selector": "static",
+        "topology": "directory-federated"
+      },
+      "is_control": false,
+      "na": false,
+      "na_reason": "",
+      "rq": "RQ2"
+    }
+  ],
+  "declared_na_cells": [
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off+padding",
+      "factors": {
+        "bridge": "off+padding",
+        "selector": "static",
+        "topology": "1house"
+      },
+      "is_control": false,
+      "na": true,
+      "na_reason": "padding is only defined for bridge-on (prereg \u00a72)",
+      "rq": "RQ1"
+    }
+  ],
+  "matched_N_rule": "RQ2 single-house arm node count = total consenting nodes of the federated arm (prereg \u00a76 matched-N [APPROVAL]); the concrete N is pinned from the grid inventory at run time and recorded per R2 manifest",
+  "n_run_cells": 6,
+  "order_seed": 20260719,
+  "schedule": [
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 22,
+      "seed": 10960227199551227169
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 1,
+      "seed": 7742409380834804974
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 24,
+      "seed": 1485582211549063771
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 20,
+      "seed": 10402372113648644539
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 8,
+      "seed": 2823152170730268719
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 6,
+      "seed": 785139372794628060
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 18,
+      "seed": 12914528169797511481
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 28,
+      "seed": 5254800523886349245
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 16,
+      "seed": 8062458000826075610
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 0,
+      "seed": 16345771388396437920
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 14,
+      "seed": 17590759652574448193
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 7,
+      "seed": 13623012629528671422
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 3,
+      "seed": 9324185433299474804
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 25,
+      "seed": 4748964033899598408
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 2,
+      "seed": 7457358446123065425
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 12,
+      "seed": 2481895472172287920
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 21,
+      "seed": 1300455502186884173
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 11,
+      "seed": 12338561505175734791
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 23,
+      "seed": 10051291293669349055
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 10,
+      "seed": 5897466768799976511
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 4,
+      "seed": 7532971950826589173
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 29,
+      "seed": 4309272901615416655
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 26,
+      "seed": 8305358654061175844
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 24,
+      "seed": 8089162793268272132
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 12,
+      "seed": 4592732699772029390
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 13,
+      "seed": 13169340911627032883
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 6,
+      "seed": 17097051163520299064
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 21,
+      "seed": 1792739942561521511
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 7,
+      "seed": 17239677757898055157
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 25,
+      "seed": 16713929657204633346
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 16,
+      "seed": 1244764398089759375
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 28,
+      "seed": 18249168763328313881
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 2,
+      "seed": 14556970601148047983
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 11,
+      "seed": 16829959502579203007
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 24,
+      "seed": 7429759019980042396
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 18,
+      "seed": 2315915448987727145
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 28,
+      "seed": 4402057643157634545
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 10,
+      "seed": 12517458902929315931
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 19,
+      "seed": 7176221052346087847
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 0,
+      "seed": 13798520297364579975
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 1,
+      "seed": 11607298214839179874
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 5,
+      "seed": 200438479216697685
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 14,
+      "seed": 6379968287549258339
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 27,
+      "seed": 1114538660819176895
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 19,
+      "seed": 10004098539750451962
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 3,
+      "seed": 12588684156916339680
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 17,
+      "seed": 6401226176821934598
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 2,
+      "seed": 15899252119928740428
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 9,
+      "seed": 11924393736163910811
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 20,
+      "seed": 561333872477357437
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 5,
+      "seed": 7839996810876341921
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 6,
+      "seed": 12699354933879409765
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 4,
+      "seed": 9961956665484773403
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 26,
+      "seed": 1802866296959535960
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 13,
+      "seed": 12373006685816890169
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 25,
+      "seed": 2593806318094439772
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 29,
+      "seed": 7368528959786000398
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 17,
+      "seed": 15071430192590775409
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 14,
+      "seed": 8801487869193833699
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 27,
+      "seed": 3288205110283415770
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 15,
+      "seed": 14020326745755485344
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 16,
+      "seed": 13419618543771817197
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 22,
+      "seed": 2428246987732368596
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 20,
+      "seed": 5647736933660424048
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 15,
+      "seed": 8592008575888599601
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 18,
+      "seed": 9548646493161006643
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 7,
+      "seed": 4061092700882271661
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 0,
+      "seed": 17134682012163151944
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 1,
+      "seed": 15475337203069866420
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 23,
+      "seed": 611550400281394752
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 8,
+      "seed": 16707973737546034094
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 9,
+      "seed": 5284881326670686383
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 8,
+      "seed": 3180005698279011255
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 22,
+      "seed": 7479187439503928509
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "is_control": false,
+      "rq": "RQ1",
+      "run_index": 3,
+      "seed": 760025399744002000
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 27,
+      "seed": 1698968794826882201
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 29,
+      "seed": 16326200552825249782
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 21,
+      "seed": 16194504166424191743
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 26,
+      "seed": 8471118044925305283
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 15,
+      "seed": 11334832974756708139
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 13,
+      "seed": 3073057369210513627
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 4,
+      "seed": 10539435304761702335
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 11,
+      "seed": 2744175433999789475
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 12,
+      "seed": 10377214200223928390
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 23,
+      "seed": 7398753154068579933
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 5,
+      "seed": 2183872017465085178
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 10,
+      "seed": 5122099946516897456
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 19,
+      "seed": 17370431139305601640
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 17,
+      "seed": 17444130841822546819
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "is_control": true,
+      "rq": "RQ1",
+      "run_index": 9,
+      "seed": 1917132177356262226
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 9,
+      "seed": 1681974109020315580
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 24,
+      "seed": 4749658765341220575
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 0,
+      "seed": 9219075025501358010
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 10,
+      "seed": 14219258457710923330
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 6,
+      "seed": 16097497512202343200
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 3,
+      "seed": 15017962867209629734
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 19,
+      "seed": 10006415107981799645
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 16,
+      "seed": 15194311678262274567
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 15,
+      "seed": 4476209183330612819
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 25,
+      "seed": 7751970114807294153
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 20,
+      "seed": 9586416575999757406
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 13,
+      "seed": 15595504128297079464
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 18,
+      "seed": 2683617626306015163
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 23,
+      "seed": 10161154870217307711
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 1,
+      "seed": 9713226795153485794
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 26,
+      "seed": 13853045291695170237
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 13,
+      "seed": 4901868520998646651
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 4,
+      "seed": 5018049738150758186
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 19,
+      "seed": 529723088839533078
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 5,
+      "seed": 16032129903698868740
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 12,
+      "seed": 3255201372235006486
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 16,
+      "seed": 5174661344400281675
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 9,
+      "seed": 8624202257926438363
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 2,
+      "seed": 11096359733916111632
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 18,
+      "seed": 3835574954651485390
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 12,
+      "seed": 8605722744907753500
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 20,
+      "seed": 12997627341931741417
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 22,
+      "seed": 12960583068225814612
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 26,
+      "seed": 8790302984495402390
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 19,
+      "seed": 16311882400114623021
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 14,
+      "seed": 4381312474533322086
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 27,
+      "seed": 3018552040475607605
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 28,
+      "seed": 15996847717197976189
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 3,
+      "seed": 2522717074602394514
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 14,
+      "seed": 1758311378002052690
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 21,
+      "seed": 8429720294532230448
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 23,
+      "seed": 12277363527984078516
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 25,
+      "seed": 4437805551873464412
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 24,
+      "seed": 18173844038727530175
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 8,
+      "seed": 9257180816096384437
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 6,
+      "seed": 10381359742792621412
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 0,
+      "seed": 61402608481775867
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 20,
+      "seed": 14609290683905136262
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 4,
+      "seed": 9876810606909861994
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 17,
+      "seed": 13246808574720720898
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 27,
+      "seed": 7323287884097088266
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 5,
+      "seed": 6943422272941642094
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 21,
+      "seed": 4082443018668676540
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 23,
+      "seed": 17577717014733128362
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 6,
+      "seed": 17967033684161193663
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 3,
+      "seed": 7432229863217356430
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 7,
+      "seed": 4361164506539519226
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 1,
+      "seed": 14951774378537678542
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 8,
+      "seed": 11598452106195128522
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 29,
+      "seed": 12041638743593467316
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 11,
+      "seed": 17753457965144901521
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 10,
+      "seed": 959919107569524879
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 10,
+      "seed": 12687986896191359397
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 18,
+      "seed": 15884753622979957822
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 9,
+      "seed": 8502801491198665272
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 1,
+      "seed": 10988396720848018889
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 25,
+      "seed": 8816098371794179515
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 13,
+      "seed": 9971304841233610387
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 24,
+      "seed": 4247614869232645587
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 17,
+      "seed": 11998627719368445330
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 15,
+      "seed": 7859002475745682472
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 11,
+      "seed": 10787471348282750
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 2,
+      "seed": 15050815117559948509
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 29,
+      "seed": 16350517303652625599
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 15,
+      "seed": 17885909942179176544
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 7,
+      "seed": 12033850759423592519
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 16,
+      "seed": 13430355622665850647
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 22,
+      "seed": 2623387898658752865
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 0,
+      "seed": 4197587451276998135
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "is_control": false,
+      "rq": "RQ2",
+      "run_index": 28,
+      "seed": 12748378722390940315
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 11,
+      "seed": 16043842061978186989
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 17,
+      "seed": 13418008896524951109
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 26,
+      "seed": 11596261075087356454
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 5,
+      "seed": 3064447376559784597
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 14,
+      "seed": 4493141081581666132
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 21,
+      "seed": 9791179563133607638
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 27,
+      "seed": 9967344172056637261
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 28,
+      "seed": 2270299684152057755
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 22,
+      "seed": 13237059275595042085
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 29,
+      "seed": 4778304797109406613
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 2,
+      "seed": 8395078656736522289
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 8,
+      "seed": 11091823855044843938
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 4,
+      "seed": 3559423530300396006
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 12,
+      "seed": 10348844149775615282
+    },
+    {
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "is_control": true,
+      "rq": "RQ2",
+      "run_index": 7,
+      "seed": 6358808477147826662
+    }
+  ],
+  "schema": "sor-cell-plan/1",
+  "scope": "lead paper (G4 + RQ1 + RQ2) \u2014 RQ3 severable follow-on (prereg D6)",
+  "seed_rule": "SHA256('<S0>|<cell_id>|<run_index>') big-endian first 8 bytes -> u64",
+  "total_circuits": 9000,
+  "total_runs": 180
+}

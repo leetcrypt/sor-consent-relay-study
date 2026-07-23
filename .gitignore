@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.venv/
+venv/
+
+# Raw artifacts are offered on request, not tracked here (see README → Data availability)
+*.pcap
+confirmatory-data/
+
+# OS / editor
+.DS_Store
+*.swp

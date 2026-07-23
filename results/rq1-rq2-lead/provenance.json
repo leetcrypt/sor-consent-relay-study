@@ -1,0 +1,71 @@
+{
+  "schema": "sor-raw-freeze/1",
+  "battery_dir": "output/sor-confirmatory/20260720T060132Z",
+  "data_subdir": "confirmatory-data",
+  "frozen_prereg_sha256": "f22331a72e0d0ccf38b787e63acabbe9d666456ec76076787a6d545c3193425b",
+  "seed": {
+    "S0": 20260719,
+    "formula": "seed = SHA256(S0 || cell_id || run_index)[:8] as u64 big-endian, via cmd_chat.sor.battery.derive_seed",
+    "verified": "180/180 per-cell manifest/metrics seeds recomputed and matched derive_seed(cell_id, run_index)"
+  },
+  "design_lattice": {
+    "R_runs_per_cell": 30,
+    "C_circuits_per_run": 50,
+    "cells_total": 180,
+    "circuits_total": 9000,
+    "note": "RQ3 arm is NOT in the frozen lattice (dropped for the G4+RQ1+RQ2 lead paper); the 6 design cells are 3 RQ1 arms + 3 RQ2 arms, each R=30.",
+    "cells": {
+      "RQ1/topo=1house/selector=static/bridge=off": 30,
+      "RQ1/topo=1house/selector=static/bridge=on": 30,
+      "RQ1/topo=1house/selector=static/bridge=on+padding": 30,
+      "RQ2/bridge=off/selector=static/topo=1house-N": 30,
+      "RQ2/bridge=off/selector=static/topo=bridge-federated": 30,
+      "RQ2/bridge=off/selector=static/topo=directory-federated": 30
+    },
+    "rq_counts": {"RQ1": 90, "RQ2": 90}
+  },
+  "executor": {
+    "confirmatory_run_git_sha": "ce68d41348b3c151cab0f265efbce8fc7e9a839e",
+    "confirmatory_run_git_note": "last commit touching cmd_chat/sor/confirmatory_run.py + executor.py (SS1 executor commit)",
+    "worktree_head_at_freeze": "a7c5eb221d3fb96acb8d2872a22cf6ec38416dbb",
+    "branch": "feat/sor-consent-relay"
+  },
+  "isolation": {
+    "engine": "docker",
+    "image_digest": null,
+    "image_digest_note": "per-cell manifests recorded engine.image_digest=null at run time; the sor-hop image was not digest-pinned by the executor. Containment (engine != local) was asserted per-hop by ForwarderPlan; image digest is unavailable post-hoc.",
+    "assertion": "isolated-docker-only (engine != local) enforced per hop at collection time"
+  },
+  "timestamps": {
+    "battery_start_utc": "2026-07-20T06:11:41Z",
+    "battery_end_utc": "2026-07-21T05:24:09Z",
+    "start_end_source": "earliest per-cell manifest mtime -> latest per-cell metrics mtime (no aggregate results.json was written)"
+  },
+  "completion": {
+    "criterion": "180 cells each carrying metrics.json (frozen completion proxy)",
+    "criterion_met": true,
+    "battery_results_json_present": false,
+    "battery_results_json_note": "aggregate battery-results.json was NOT written by the run; this is expected and NOT fabricated. Cell count (180/180) is the completion proxy per the frozen criterion."
+  },
+  "integrity": {
+    "cell_dirs": 180,
+    "all_have_metrics_json": true,
+    "all_have_manifest_json": true,
+    "all_have_nonempty_circuits": true,
+    "missing_per_hop_pcaps": 0,
+    "seed_verify_ok": 180,
+    "seed_verify_bad": 0
+  },
+  "checksums": {
+    "manifest_file": "SHA256SUMS.txt",
+    "artifact_count": 36361,
+    "artifact_breakdown": {"pcap": 27000, "events.jsonl": 9000, "json": 361},
+    "sha256sums_txt_digest": "3fb67c7a9253c7f61f25a8432224decd85cff1b4baee8f6a1b60baa936707922",
+    "note": "SHA256SUMS.txt holds a SHA-256 over every raw artifact (per-hop pcaps, per-circuit events.jsonl, per-cell metrics.json + manifest.json), sorted by relative path. This is the raw-data immutability anchor. Raw metrics.json are IMMUTABLE and were NOT recomputed or edited."
+  },
+  "blinding": {
+    "status": "lifted for code-on-real-data as of battery completion",
+    "ss2_scope": "structure/checksums/provenance ONLY — no RQ1/RQ2 inferential statistic (AUC/H/CI) computed, aggregated, or inspected in this stone. First real inferential numbers come from the frozen §6 pipeline in SS3 in one auditable pass.",
+    "note": "Per-cell metrics.json contain live-written per-circuit DV columns; SS2 checksums them without aggregating or reading effect directions across cells."
+  }
+}

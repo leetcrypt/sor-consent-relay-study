@@ -1,0 +1,2 @@
+[RQ3 GO] all locks armed — collecting LIVE RQ3 battery (selector arms × churn kp30s20, R=30 C=50) into output/sor-rq3-confirmatory/20260722T040640Z/confirmatory-data
+[RQ3 GO] battery collected: 90 runs (measured_from=live-docker-e2e) -> output/sor-rq3-confirmatory/20260722T040640Z/confirmatory-data/rq3-battery-results.json

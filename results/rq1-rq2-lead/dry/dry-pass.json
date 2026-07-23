@@ -1,0 +1,46 @@
+{
+  "all_seed_reproduces": true,
+  "all_sha_match": true,
+  "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+  "distinct_seeds": true,
+  "reports": [
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "circuit_sequence": [
+        [
+          4,
+          2,
+          0
+        ]
+      ],
+      "events_sha256": "22b6fe2ada622bf11dce9b013c412d86d4f9d5a611ea3d0a96da32d9d8115303",
+      "manifest_events_sha256": "22b6fe2ada622bf11dce9b013c412d86d4f9d5a611ea3d0a96da32d9d8115303",
+      "run_dir": "output/sor-confirmatory/20260720T060132Z/dry/dry-RQ1-0-e2d7d879611d01a0",
+      "run_id": "dry-RQ1-0-e2d7d879611d01a0",
+      "run_index": 0,
+      "seed": 16345771388396437920,
+      "seed_reproduces_circuits": true,
+      "sha_match": true
+    },
+    {
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "circuit_sequence": [
+        [
+          1,
+          0,
+          3
+        ]
+      ],
+      "events_sha256": "b940dd272d3b2bfe7c0fd2dd8c526b1daeb3e41322bb11b930bbfd33b79bc72a",
+      "manifest_events_sha256": "b940dd272d3b2bfe7c0fd2dd8c526b1daeb3e41322bb11b930bbfd33b79bc72a",
+      "run_dir": "output/sor-confirmatory/20260720T060132Z/dry/dry-RQ1-1-6b72904f924f84ee",
+      "run_id": "dry-RQ1-1-6b72904f924f84ee",
+      "run_index": 1,
+      "seed": 7742409380834804974,
+      "seed_reproduces_circuits": true,
+      "sha_match": true
+    }
+  ],
+  "runs": 2,
+  "schema": "sor-dry-pass/1"
+}

@@ -1,0 +1,87 @@
+{
+  "all_green": true,
+  "all_isolation_gated": true,
+  "all_reproduce": true,
+  "cells": [
+    {
+      "bridge_present": false,
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=off",
+      "fingerprint": "42fe6078b8d1ec8a289be044201f22b54990d9c3924e2c354d45958947889ce7",
+      "isolation_gated": true,
+      "padding_applied": false,
+      "reproduces": true,
+      "rq": "RQ1",
+      "seed": 16345771388396437920,
+      "span_houses": 1,
+      "topology": "1house"
+    },
+    {
+      "bridge_present": true,
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on",
+      "fingerprint": "df465f598295442ee08d8717d9b0a6916a4f11c5ca3274fb6aefd9f063fbe3ff",
+      "isolation_gated": true,
+      "padding_applied": false,
+      "reproduces": true,
+      "rq": "RQ1",
+      "seed": 17134682012163151944,
+      "span_houses": 2,
+      "topology": "1house"
+    },
+    {
+      "bridge_present": true,
+      "cell_id": "RQ1/topo=1house/selector=static/bridge=on+padding",
+      "fingerprint": "e1f92104e07207aa85ee5b55775cf0317c818982d41d15bc6e7d08ccb67e484b",
+      "isolation_gated": true,
+      "padding_applied": true,
+      "reproduces": true,
+      "rq": "RQ1",
+      "seed": 13798520297364579975,
+      "span_houses": 2,
+      "topology": "1house"
+    },
+    {
+      "bridge_present": false,
+      "cell_id": "RQ2/bridge=off/selector=static/topo=1house-N",
+      "fingerprint": "f87b7556a5d98756b5f114b5699110dce5294303d4a67460b6c89271705e43de",
+      "isolation_gated": true,
+      "padding_applied": false,
+      "reproduces": true,
+      "rq": "RQ2",
+      "seed": 9219075025501358010,
+      "span_houses": 1,
+      "topology": "1house-N"
+    },
+    {
+      "bridge_present": true,
+      "cell_id": "RQ2/bridge=off/selector=static/topo=bridge-federated",
+      "fingerprint": "4bdb90e71ca3c30d8c028c82f00e341fb92bc51e63fee318c884b15b777f3fd5",
+      "isolation_gated": true,
+      "padding_applied": false,
+      "reproduces": true,
+      "rq": "RQ2",
+      "seed": 61402608481775867,
+      "span_houses": 3,
+      "topology": "bridge-federated"
+    },
+    {
+      "bridge_present": false,
+      "cell_id": "RQ2/bridge=off/selector=static/topo=directory-federated",
+      "fingerprint": "923eb822ea9819457d341f07c15048f404d7d8ebe51a6fe7a762e0c074244819",
+      "isolation_gated": true,
+      "padding_applied": false,
+      "reproduces": true,
+      "rq": "RQ2",
+      "seed": 4197587451276998135,
+      "span_houses": 2,
+      "topology": "directory-federated"
+    }
+  ],
+  "distinct_fingerprints": true,
+  "engine": "docker",
+  "n_cells": 6,
+  "rq1_bridge_arms_live": true,
+  "rq1_padding_arm_live": true,
+  "rq2_federation_spans_2plus": true,
+  "run_index": 0,
+  "schema": "sor-assembler-dry/1"
+}
